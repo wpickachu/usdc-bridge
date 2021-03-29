@@ -78,7 +78,7 @@ echo  "{  \"chains\": [  {  \"name\": \"Ethereum\",  \"type\": \"ethereum\",  \"
 ./build/chainbridge --config ./config.json --verbosity trace --latest
 ```
 If the deployment was successful the layer should show logs similar to
-![plot](./bridge.png)
+![plot](./assets/bridge.png)
 
 
 ## Token Transfers

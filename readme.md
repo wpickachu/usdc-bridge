@@ -1,5 +1,9 @@
 # Bridge deployment for Edgware(EVM) <-> Ethereum
-[Chainbridge](https://github.com/ChainSafe/ChainBridge) is a multisig bridge that helps transfer ERC20 tokens between two chains, it supports EVM or substrate based chains.
+[Chainbridge](https://github.com/ChainSafe/ChainBridge) is an extensible cross-chain communication protocol. It currently supports bridging between EVM and Substrate based chains.
+
+A bridge contract (or pallet in Substrate) on each chain forms either side of a bridge. Handler contracts allow for customizable behavior upon receiving transactions to and from the bridge. For example locking up an asset on one side and minting a new one on the other. Its highly customizable - you can deploy a handler contract to perform any action you like.
+
+In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.
 ## Deployment
 To deploy contracts on either side of the bridge, chainbridge has provided official [CLI](https://github.com/ChainSafe/chainbridge-deploy) we recommend setting it up before proceeding.
 
@@ -82,3 +86,7 @@ If the deployment was successful the layer should show logs similar to
 To execute a transfer on either side of the bridge two calls are required.
 1. An **approve** call from ERC20 contract on source/destination bridge with address of handler contract deployed and cofigured on chain,
 2. A **deposit** call to the bridge should originate from the address that is willing to spend with first parameter being chainId (destination), resource id of the token that needs to be transferred, data is a concatenated byte value with first 32 byte is the amount of tokens to transfer which is padded to 32 bytes with extra 0s, 2nd being the length of recipient address also padded to 32 bytes and last part containing the actual recipient address.
+
+
+## Whats Next
+A contracts needs to be created that allows multiple addresses to become administrators of the bridge contract on both sides of the bridge so that core bridge functionalities such as increasing the number of relayers required to validate transactions, add support for more ERC20 tokens can be further broken down into a governance type model.

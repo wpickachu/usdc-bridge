@@ -8,17 +8,17 @@ Before we start deployment we first need to initialize following environment var
 ```console
 SRC_GATEWAY=<RPC_URL_SOURCE_CHAIN>
 DST_GATEWAY=<RPC_URL_DESTINATION_CHAIN>
-SRC_ADDR="<PUBLIC_ADDRESS_SOURCE_CHAIN>"
-SRC_PK="<PRIV_KEY_SOURCE_CHAIN>"
-DST_ADDR="<PUBLIC_ADDRESS_DEST_CHAIN>"
-DST_PK="<PRIV_KEY_DEST_CHAIN>"
-SRC_TOKEN="<TARGET_TOKEN_CONTRACT_ADDRESS_SRC>"
-RESOURCE_ID="<RANDOM_32_BYTE_STRING_THAT_IDENTIFIES_TOKEN_ON_EITHER_SIDE>"
-SRC_BRIDGE="<SET_DURING_DEPLOYMENT>"
-SRC_HANDLER="<SET_DURING_DEPLOYMENT>"
-DST_BRIDGE="<SET_DURING_DEPLOYMENT>"
-DST_HANDLER="<SET_DURING_DEPLOYMENT>"
-DST_TOKEN="<SET_DURING_DEPLOYMENT>"
+SRC_ADDR=<PUBLIC_ADDRESS_SOURCE_CHAIN>
+SRC_PK=<PRIV_KEY_SOURCE_CHAIN>
+DST_ADDR=<PUBLIC_ADDRESS_DEST_CHAIN>
+DST_PK=<PRIV_KEY_DEST_CHAIN>
+SRC_TOKEN=<TARGET_TOKEN_CONTRACT_ADDRESS_SRC>
+RESOURCE_ID=<RANDOM_32_BYTE_STRING_THAT_IDENTIFIES_TOKEN_ON_EITHER_SIDE>
+SRC_BRIDGE=<SET_DURING_DEPLOYMENT>
+SRC_HANDLER=<SET_DURING_DEPLOYMENT>
+DST_BRIDGE=<SET_DURING_DEPLOYMENT>
+DST_HANDLER=<SET_DURING_DEPLOYMENT>
+DST_TOKEN=<SET_DURING_DEPLOYMENT>
 ```
 These variables can be written to a file **vars** and can be loaded into the shell by using the command 
 ```console
@@ -27,12 +27,13 @@ set -a;source ./vars;set +a
 
 ### 2. Steps
 
-1. First step in the deployment process is to deploy chainbridge contracts on the source chain.
+1. First step in the deployment process is to deploy chainbridge contracts on the source chain. This can be done through the following command.
 ```console
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 deploy \--bridge --erc20Handler \--relayers $SRC_ADDR \--relayerThreshold 1\ --chainId 0
 ```
-2. Once the bridge contracts have been deployed on the source chain, chainbridge-cli will provide us the contract addresses. These two addresses for bridge and handler can be pasted into the environment variables file we created as **SRC_BRIDGE** and **SRC_HANDLER** respectively.
-3. Configure the bridge contract to register the source token on the bridge and also configure the handler to be used with the command
+2. Once the bridge contracts have been deployed on the source chain, chainbridge-cli will provide us the newly deployed contract addresses. The addressess for bridge and handler can be pasted into the environment variables file we created as **SRC_BRIDGE** and **SRC_HANDLER** respectively.
+**Note:** Keep updating the environment variables after editing **vars** file.
+3. Configure the bridge contract to register source token on the bridge with resource id from **vars** file, and configure the handler to be used for executing deposits by issuing the following command.
 ```console
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 bridge register-resource \ --bridge $SRC_BRIDGE  \ --handler $SRC_HANDLER  \ --resourceId $RESOURCE_ID  \ --targetContract $SRC_TOKEN
 ```
@@ -74,3 +75,10 @@ echo  "{  \"chains\": [  {  \"name\": \"Ethereum\",  \"type\": \"ethereum\",  \"
 ```
 If the deployment was successful the layer should show logs similar to
 ![plot](./bridge.png)
+
+
+## Token Transfers
+
+To execute a transfer on either side of the bridge two calls are required.
+1. An **approve** call from ERC20 contract on source/destination bridge with address of handler contract deployed and cofigured on chain,
+2. A **deposit** call to the bridge should originate from the address that is willing to spend with first parameter being chainId (destination), resource id of the token that needs to be transferred, data is a concatenated byte value with first 32 byte is the amount of tokens to transfer which is padded to 32 bytes with extra 0s, 2nd being the length of recipient address also padded to 32 bytes and last part containing the actual recipient address.

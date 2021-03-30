@@ -7,7 +7,7 @@ In its current state ChainBridge operates under a trusted federation model. Depo
 
 # Available on test net
 Chain bridge contract has been successfully deployed on Rinkeby and Beresheet test networks, however since we are yet to deploy a full fledged testing model
-its functionality is limited to only 1 validator which is owned by test net account of a dtrade dev and a USDC used by the bridge on Rinkeby is also deployed by us.
+its functionality is limited to only 1 validator which is owned by test net account of a dtrade dev and a custom USDC contract deployed on Rinkeby with 18 decimal places.
 Contract address are:
 * Beresheet\
   Bridge: 0x02bd5bd3e941013a21dbf7d0621c9ed6f1b68710\

@@ -1,18 +1,9 @@
 import { ethers } from "ethers";
 import { writeFileSync, existsSync, mkdirSync } from "fs";
 import { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } from "../contants";
-import { splitCommaList, waitForTx } from "../utils";
+import { getWalletAndProvider, splitCommaList, waitForTx } from "../utils";
 import { Command } from 'commander';
 import * as path from 'path';
-
-function getWalletAndProvider(rpcUrl: string, privateKey: string, chainNetworkId: number = undefined) {
-    let chainProvider = chainNetworkId ? new ethers.providers.JsonRpcProvider(rpcUrl) : new ethers.providers.JsonRpcProvider(rpcUrl, {
-        name: "custom",
-        chainId: chainNetworkId
-    });
-    let chainWallet = new ethers.Wallet(privateKey, chainProvider);
-    return { chainProvider, chainWallet };
-}
 
 async function registerResource(bridgeAddress: string, handlerAddress: string, targetTokenAddress: string, resourceId: string, chainProvider: ethers.providers.JsonRpcProvider, wallet: ethers.Wallet) {
     const bridgeInstance = new ethers.Contract(bridgeAddress, ContractABIs.Bridge.abi, wallet);

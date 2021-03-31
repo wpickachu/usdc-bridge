@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy": "ts-node index.ts deployBridge"
+  },
   "dependencies": {
     "@types/node": "^14.14.37",
     "commander": "^7.2.0",

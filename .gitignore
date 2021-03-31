@@ -39,3 +39,6 @@ centrifuge-chain/
 # Solidity
 /solidity
 /cfgBuilder/*.toml
+
+# node
+node_modules/

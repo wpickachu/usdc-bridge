@@ -42,3 +42,4 @@ centrifuge-chain/
 
 # node
 node_modules/
+publish/

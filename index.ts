@@ -21,12 +21,12 @@ const deployBridge = new Command("deployBridge")
         destinationWallet = _res.chainWallet;
         destinationChainProvider = _res.chainProvider;
 
-        const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [process.env.SRC_CHAIN_ADDRESS], sourceWallet);
+        const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [process.env.SRC_ADDRESS], sourceWallet);
         const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
         await registerResource(sourceBridgeAddress, sourceHandlerAddress, process.env.SRC_TOKEN, process.env.RESOURCE_ID, sourceChainProvider, sourceWallet);
         // Deployed contracts on source chain
 
-        const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [process.env.DEST_CHAIN_ADDRESS], destinationWallet);
+        const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [process.env.DEST_ADDRESS], destinationWallet);
         const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
         const wrappedERC20Address = await deployERC20Mintable(`w${process.env.TARGET_TOKEN_NAME}`, `w${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
         await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
@@ -55,9 +55,9 @@ const deployBridge = new Command("deployBridge")
             Destination Handler Address: ${destHanderAddress}
             Destination Token Address: ${wrappedERC20Address}
             ---------------------------------------------
-            Bridge Owner(src): ${process.env.SRC_CHAIN_ADDRESS}
-            Bridge Owner(dest): ${process.env.DEST_CHAIN_ADDRESS}
-            ERC20 Owner(dest): ${process.env.DEST_CHAIN_ADDRESS}
+            Bridge Owner(src): ${process.env.SRC_ADDRESS}
+            Bridge Owner(dest): ${process.env.DEST_ADDRESS}
+            ERC20 Owner(dest): ${process.env.DEST_ADDRESS}
 
         `);
 
@@ -77,7 +77,7 @@ const deployBridge = new Command("deployBridge")
             maxGasPrice: "10000000000"
         }
         if (process.env.DEST_CHAIN_RPC.startsWith('http')) destOpts['http'] = "true";
-        let bridgeConfig = { chains: [ { endpoint: "<ws_url_here>", from: process.env.SRC_CHAIN_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: "<ws_url_here>", from: process.env.DEST_CHAIN_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
+        let bridgeConfig = { chains: [ { endpoint: "<ws_url_here>", from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: "<ws_url_here>", from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
         writeFileSync('config.json', JSON.stringify(bridgeConfig) , 'utf-8'); 
 });
 

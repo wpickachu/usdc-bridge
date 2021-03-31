@@ -20,6 +20,7 @@ coverage.txt
 
 # Builds
 build/
+!/contracts/build
 bin/
 site/
 

@@ -7,3 +7,5 @@ export const waitForTx = async (provider, hash) => {
         sleep(5000)
     }
 }
+
+export const splitCommaList = (csl: string) => csl.split(",")

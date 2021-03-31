@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { Command } from 'commander';
 import { ContractABIs, DEST_CHAIN_DEFAULT_ID, GAS_LIMIT, GAS_PRICE, SRC_CHAIN_DEFAULT_ID } from './contants';
-import { waitForTx } from './utils';
+import { splitCommaList, waitForTx } from './utils';
 import { getWalletAndProvider, deployBridgeContract, deployERC20Handler, registerResource, deployERC20Mintable } from './deploy';
 import { writeFileSync } from 'fs';
 require('dotenv').config();
@@ -9,7 +9,12 @@ require('dotenv').config();
 let program = new Command();
 
 const deployBridge = new Command("deployBridge")
+    .option("--relayersSrc <value>", "List of initial relayers (source)", splitCommaList, [])
+    .option("--relayersDest <value>", "List of initial relayers (destination)", splitCommaList, [])
     .action(async args => {
+        if (!args.relayersSrc.length) args.relayersSrc.push(process.env.SRC_ADDRESS);
+        if (!args.relayersDest.length) args.relayersDest.push(process.env.DEST_ADDRESS);
+
         let sourceChainProvider, destinationChainProvider,
             sourceWallet, destinationWallet;
 
@@ -21,12 +26,12 @@ const deployBridge = new Command("deployBridge")
         destinationWallet = _res.chainWallet;
         destinationChainProvider = _res.chainProvider;
 
-        const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [process.env.SRC_ADDRESS], sourceWallet);
+        const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, args.relayersSrc, sourceWallet);
         const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
         await registerResource(sourceBridgeAddress, sourceHandlerAddress, process.env.SRC_TOKEN, process.env.RESOURCE_ID, sourceChainProvider, sourceWallet);
         // Deployed contracts on source chain
 
-        const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [process.env.DEST_ADDRESS], destinationWallet);
+        const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet);
         const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
         const wrappedERC20Address = await deployERC20Mintable(`w${process.env.TARGET_TOKEN_NAME}`, `w${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
         await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
@@ -44,7 +49,6 @@ const deployBridge = new Command("deployBridge")
         await waitForTx(destinationChainProvider, tx.hash);
 
         console.log(`
-
             🌉 ChainBridge Deployed
             ---------------------------------------------
             Source Bridge Address: ${sourceBridgeAddress}
@@ -58,7 +62,9 @@ const deployBridge = new Command("deployBridge")
             Bridge Owner(src): ${process.env.SRC_ADDRESS}
             Bridge Owner(dest): ${process.env.DEST_ADDRESS}
             ERC20 Owner(dest): ${process.env.DEST_ADDRESS}
-
+            ---------------------------------------------
+            Source Relayers: ${args.relayersSrc.join(',')}
+            Destination Relayers: ${args.relayersDest.join(',')}
         `);
 
         let srcOpts = {
@@ -79,6 +85,8 @@ const deployBridge = new Command("deployBridge")
         if (process.env.DEST_CHAIN_RPC.startsWith('http')) destOpts['http'] = "true";
         let bridgeConfig = { chains: [ { endpoint: "<ws_url_here>", from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: "<ws_url_here>", from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
         writeFileSync('config.json', JSON.stringify(bridgeConfig) , 'utf-8'); 
+        writeFileSync('initialRelayers.json', JSON.stringify({ destination: args.relayersDest, source: args.relayersSrc }) , 'utf-8'); 
+        console.log(`⚙️     config.json written to run as the first relayer!`);
 });
 
 program.addCommand(deployBridge);

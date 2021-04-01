@@ -19,7 +19,7 @@ wUSDC: 0xec596280e4bc4d79044f8b0561b9a7d33e5e7cdc
 Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58  
 
 ##  Deployment
-1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```env``` file.
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env`` folder.
 
 | Variable | Description |
 | ----------- | ----------- |
@@ -41,11 +41,6 @@ Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58
 | TARGET_TOKEN_SYMBOL | ERC20 Token symbol that will be transferred over the bridge |
 
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains and also build a validator for you.
-  
-***Note:*** After successful deployment two files will be generated in the publish folder within the root directory of this repo, ```config.json``` will be used to run the relayer and the other will have necessary addresses for future interactions, updates on bridge contract.
-
-**Important**: Update endpoints in config.json generated with ws url and remove http:true from options if ws rpc url is available.
-
 3. It will ask you to set password for relayer private keys, set the keys and save them for future
 ##  Token Transfers
 

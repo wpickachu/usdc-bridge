@@ -5,6 +5,7 @@ function sleep(ms) {
 }
 
 export const waitForTx = async (provider, hash) => {
+    console.log(`[${hash}] Waiting for transaction...`);
     while (!await provider.getTransactionReceipt(hash)) {
         sleep(5000)
     }

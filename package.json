@@ -1,7 +1,7 @@
 {
   "name": "edg-eth-bridge",
   "scripts": {
-    "deploy": "tsc && node index.js deployBridge && cd relayer && make build",
+    "deploy": "tsc && node index.js deployBridge && ./scripts/deployBridge.sh",
     "build": "tsc"
   },
   "main": "index.js",

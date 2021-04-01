@@ -19,17 +19,17 @@ wUSDC: 0xec596280e4bc4d79044f8b0561b9a7d33e5e7cdc
 Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58  
 
 ##  Deployment
-To deploy contracts on either side of the bridge, we need to first set the following variables in ```env``` file.
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```env``` file.
 
 | Variable | Description |
 | ----------- | ----------- |
-| SRC_CHAIN_RPC | RPC Url of source chain |
+| SRC_CHAIN_RPC_HTTPS | RPC Url of source chain |
 | SRC_CHAIN_NETWORK_ID | Network id of chain e.g 1 for Eth main net. |
 | SRC_CHAIN_NAME | Chain name e.g Ethereum |
 | SRC_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on source chain. |
 | SRC_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on source chain. |
 | SRC_TOKEN | Contract address of the token that will be transferred over the bridge |
-| DEST_CHAIN_RPC | RPC Url of destination chain |
+| DEST_CHAIN_RPC_HTTPS | RPC Url of destination chain |
 | DEST_CHAIN_NETWORK_ID | Network id of chain e.g 2021 for Beresheet. |
 | DEST_CHAIN_NAME | Chain name e.g Edgeware |
 | DEST_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on destination chain. |
@@ -38,12 +38,17 @@ To deploy contracts on either side of the bridge, we need to first set the follo
 |TARGET_TOKEN_NAME| ERC20 Token name that will be transferred over the bridge |
 |TARGET_TOKEN_SYMBOL| ERC20 Token symbol that will be transferred over the bridge |
 
-After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains and also build a validator for you.
+2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains and also build a validator for you.
   
 ***Note:*** After successful deployment two files will be generated in the publish folder within the root directory of this repo, ```config.json``` will be used to run the relayer and the other will have necessary addresses for future interactions, updates on bridge contract.
 
 **Important**: Update endpoints in config.json generated with ws url and remove http:true from options if ws rpc url is available.
 
+3. Add private keys to validator
+  ```./relayer/build/chainbridge accounts import --privateKey <SRC_PK>```
+  ```./relayer/build/chainbridge accounts import --privateKey <DST_PK>```
+
+4. Start relayer using
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.

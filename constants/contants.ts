@@ -1,7 +1,7 @@
 import * as path from 'path';
 export const SRC_CHAIN_DEFAULT_ID = 0;
 export const DEST_CHAIN_DEFAULT_ID = 1;
-export const GAS_PRICE = 20000000;
+export const GAS_PRICE = 10000000000;
 export const GAS_LIMIT = 8000000;
 const CONTRACT_PATH = path.join(__dirname, '../contracts');
 export const ContractABIs = {

@@ -49,4 +49,4 @@ To execute a transfer on either side of the bridge two calls are required.
 2. A **deposit** call to the bridge should originate from the address that is willing to spend with first parameter being chainId (destination), resource id of the token that needs to be transferred, data is a concatenated byte value with first 32 byte is the amount of tokens to transfer which is padded to 32 bytes with extra 0s, 2nd being the length of recipient address also padded to 32 bytes and last part containing the actual recipient address.
 
 ##  Whats Next
-A contracts needs to be created that allows multiple addresses to become administrators of the bridge contract on both sides of the bridge so that core bridge functionalities such as increasing the number of relayers required to validate transactions, add support for more ERC20 tokens can be further broken down into a governance type model.
+Add gnosis multisafe wallet as an admin on both sides of the bridge to have trusted set of validators.

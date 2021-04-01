@@ -1,10 +1,10 @@
 import { ethers } from "ethers";
 import { writeFileSync, existsSync, mkdirSync } from "fs";
 import { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } from "../constants/contants";
-import { getWalletAndProvider, splitCommaList, waitForTx } from "../utils";
+import { getWalletAndProvider, splitCommaList, waitForTx } from "../utils/utils";
 import { Command } from 'commander';
 import * as path from 'path';
-require('dotenv').config({ path: path.join(__dirname, '../deploy.env')});
+require('dotenv').config({ path: path.join(__dirname, '../env/deploy.env')});
 
 async function registerResource(bridgeAddress: string, handlerAddress: string, targetTokenAddress: string, resourceId: string, chainProvider: ethers.providers.JsonRpcProvider, wallet: ethers.Wallet) {
     const bridgeInstance = new ethers.Contract(bridgeAddress, ContractABIs.Bridge.abi, wallet);

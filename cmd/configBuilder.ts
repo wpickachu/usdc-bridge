@@ -27,4 +27,4 @@ const newRelayer = new Command("newRelayer")
 });
 
 export const configBuilder = new Command("configBuilder")
-    .addCommand(newRelayer)
+    .addCommand(newRelayer);

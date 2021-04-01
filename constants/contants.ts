@@ -7,7 +7,7 @@ const CONTRACT_PATH = path.join(__dirname, '../contracts');
 export const ContractABIs = {
     Bridge: require(CONTRACT_PATH + "/build/Bridge.json"),
     Erc20Handler: require(CONTRACT_PATH + "/build/ERC20Handler.json"),
-    Erc20Mintable: require(CONTRACT_PATH + "/build/ERC20PresetMinterPauser.json"),
+    Erc20Mintable: require(CONTRACT_PATH + "/build/USDCToken.json"),
     Erc721Handler: require(CONTRACT_PATH + "/build/ERC721Handler.json"),
     Erc721Mintable: require(CONTRACT_PATH + "/build/ERC721MinterBurnerPauser.json"),
     GenericHandler: require(CONTRACT_PATH + "/build/GenericHandler.json"),

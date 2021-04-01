@@ -32,7 +32,7 @@ async function deployBridgeContract(chainId: number, initialRelayers: string[], 
 export async function deployERC20Mintable(erc20Name: string, erc20Symbol: string, wallet: ethers.Wallet) {
     console.log(`Deploying ERC20 contract...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Mintable.abi, ContractABIs.Erc20Mintable.bytecode, wallet);
-    const contract = await factory.deploy(erc20Name, erc20Symbol, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
+    const contract = await factory.deploy(erc20Name, erc20Symbol, 0, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
     await contract.deployed();
     return contract.address;
 }

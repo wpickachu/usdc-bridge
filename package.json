@@ -1,12 +1,17 @@
 {
+  "name": "edg-eth-bridge",
   "scripts": {
-    "deploy": "ts-node index.ts deployBridge"
+    "deploy": "tsc *.ts && node index.js deployBridge && cd relayer && make build",
+    "build": "tsc *.ts"
+  },
+  "main": "index.js",
+  "bin": {
+    "edg-eth-bridge": "index.js"
   },
   "dependencies": {
     "@types/node": "^14.14.37",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
-    "ethers": "^5.1.0",
-    "solc": "^0.8.3"
+    "ethers": "^5.1.0"
   }
 }

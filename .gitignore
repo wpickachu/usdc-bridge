@@ -2,6 +2,7 @@
 *.exe
 *.exe~
 *.dll
+*.js
 *.so
 *.dylib
 .DS_Store
@@ -42,5 +43,6 @@ centrifuge-chain/
 /cfgBuilder/*.toml
 
 # node
+env/*.env
 node_modules/
 publish/

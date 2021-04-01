@@ -1,9 +1,13 @@
 import { Command } from 'commander';
-import { deployBridge } from './cmd/deploy';
+import { admin } from './cmd/admin';
+import { deployBridge } from './cmd/deployBridge';
+import { configBuilder } from './cmd/configBuilder';
 require('dotenv').config();
 
 let program = new Command();
 program.addCommand(deployBridge);
+program.addCommand(admin);
+program.addCommand(configBuilder);
 program.allowUnknownOption(false);
 
 const run = async () => {

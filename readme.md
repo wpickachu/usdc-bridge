@@ -19,7 +19,7 @@ wUSDC: 0xec596280e4bc4d79044f8b0561b9a7d33e5e7cdc
 Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58  
 
 ##  Deployment
-1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env`` folder.
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.
 
 | Variable | Description |
 | ----------- | ----------- |

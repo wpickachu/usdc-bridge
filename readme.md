@@ -24,19 +24,21 @@ Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58
 | Variable | Description |
 | ----------- | ----------- |
 | SRC_CHAIN_RPC_HTTPS | RPC Url of source chain |
+| SRC_CHAIN_RPC_WS | WS Url of source chain |
 | SRC_CHAIN_NETWORK_ID | Network id of chain e.g 1 for Eth main net. |
 | SRC_CHAIN_NAME | Chain name e.g Ethereum |
 | SRC_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on source chain. |
 | SRC_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on source chain. |
 | SRC_TOKEN | Contract address of the token that will be transferred over the bridge |
 | DEST_CHAIN_RPC_HTTPS | RPC Url of destination chain |
+| DEST_CHAIN_RPC_WS | WS RPC Url of destination chain |
 | DEST_CHAIN_NETWORK_ID | Network id of chain e.g 2021 for Beresheet. |
 | DEST_CHAIN_NAME | Chain name e.g Edgeware |
 | DEST_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on destination chain. |
 | DEST_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on destination chain. |
 | RESOURCE_ID | Arbitrary 32 byte hex string that is used to identify specific token transfer on either side of the bridge|
-|TARGET_TOKEN_NAME| ERC20 Token name that will be transferred over the bridge |
-|TARGET_TOKEN_SYMBOL| ERC20 Token symbol that will be transferred over the bridge |
+| TARGET_TOKEN_NAME | ERC20 Token name that will be transferred over the bridge |
+| TARGET_TOKEN_SYMBOL | ERC20 Token symbol that will be transferred over the bridge |
 
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains and also build a validator for you.
   
@@ -44,11 +46,7 @@ Resource ID: 0xbd71ea5644e5947f2549a0cb21a1a370465fa2089e36721178a7d2f9da766b58
 
 **Important**: Update endpoints in config.json generated with ws url and remove http:true from options if ws rpc url is available.
 
-3. Add private keys to validator
-  ```./relayer/build/chainbridge accounts import --privateKey <SRC_PK>```
-  ```./relayer/build/chainbridge accounts import --privateKey <DST_PK>```
-
-4. Start relayer using
+3. It will ask you to set password for relayer private keys, set the keys and save them for future
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.

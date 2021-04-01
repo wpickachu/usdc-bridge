@@ -22,3 +22,7 @@ export function getWalletAndProvider(rpcUrl: string, privateKey: string, chainNe
     let chainWallet = new ethers.Wallet(privateKey, chainProvider);
     return { chainProvider, chainWallet };
 }
+
+export const expandDecimals = (amount, decimals = 18) => {
+    return ethers.utils.parseUnits(String(amount), decimals);
+}

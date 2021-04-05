@@ -1,0 +1,70 @@
+{
+    "bridges": [
+        {
+            "chains": [
+                {
+                    "endpoint": "wss://goerli.infura.io/ws/v3/25d8ff0ba27c4b1da084146860d67868",
+                    "from": "",
+                    "id": "0",
+                    "type": "ethereum",
+                    "name": "Goerli",
+                    "opts": {
+                        "bridge": "0x9619864B184FBbC4CF25FC0C75d8Dd88285Cd100",
+                        "erc20Handler": "0xB9474e2B409967e38FF3d92173462F796d27b434",
+                        "genericHandler": "0xB9474e2B409967e38FF3d92173462F796d27b434",
+                        "gasLimit": "1000000",
+                        "maxGasPrice": "10000000000"
+                    }
+                },
+                {
+                    "endpoint": "http://beresheet1.edgewa.re:9933/",
+                    "from": "",
+                    "id": "1",
+                    "type": "ethereum",
+                    "name": "Beresheet",
+                    "opts": {
+                        "bridge": "0x3aD3c359941E3403Fea3B9B782Fcd9032ED40fF6",
+                        "erc20Handler": "0xab77b62C3dD36E81e7E208366508eafDEb14Ee78",
+                        "genericHandler": "0xab77b62C3dD36E81e7E208366508eafDEb14Ee78",
+                        "gasLimit": "1000000",
+                        "maxGasPrice": "10000000000",
+                        "http": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "chains": [
+              {
+                "name": "Rinkeby",
+                "type": "ethereum",
+                "id": "0",
+                "endpoint": "wss://rinkeby.infura.io/ws/v3/25d8ff0ba27c4b1da084146860d67868",
+                "from": "0xda53d33e49f1f4689c3b9e1eb6e265244c77b92b",
+                "opts": {
+                  "bridge": "0xb2b5148452764c37015c51f0f0a56600f00d82c2",
+                  "erc20Handler": "0x80bbadb9bc9c71c5ef8f2682514bf88e7a0205fe",
+                  "genericHandler": "0x80bbadb9bc9c71c5ef8f2682514bf88e7a0205fe",
+                  "gasLimit": "1000000",
+                  "maxGasPrice": "10000000000"
+                }
+              },
+              {
+                "name": "Beresheet",
+                "type": "ethereum",
+                "id": "1",
+                "endpoint": "http://beresheet1.edgewa.re:9933/",
+                "from": "0x19e7e376e7c213b7e7e7e46cc70a5dd086daff2a",
+                "opts": {
+                  "bridge": "0x02bd5bd3e941013a21dbf7d0621c9ed6f1b68710",
+                  "erc20Handler": "0x34e313673e8db2f7d107a0c55a606110418d83cc",
+                  "genericHandler": "0x34e313673e8db2f7d107a0c55a606110418d83cc",
+                  "gasLimit": "1000000",
+                  "maxGasPrice": "10000000000",
+                  "http": "true"
+                }
+              }
+            ]
+        }          
+    ]
+}

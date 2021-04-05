@@ -1,15 +1,15 @@
 {
-  "name": "edg-eth-bridge",
-  "scripts": {
-    "deploy": "tsc && node index.js deployBridge && ./scripts/deployBridge.sh",
-    "build": "tsc"
-  },
+  "name": "edg-bridge",
+  "version": "1.0.0",
+  "description": "Chainbridge contracts, relayer and scripts all in one for Edgeware.",
   "main": "index.js",
-  "bin": {
-    "edg-eth-bridge": "index.js"
+  "author": "Saad Ahmed Siddiqui",
+  "license": "MIT",
+  "scripts": {
+    "start-relayer": "node index.js startRelayer && ./scripts/startRelayer.sh"
   },
   "dependencies": {
-    "@types/node": "^14.14.37",
+    "cli-select": "^1.1.2",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "ethers": "4.0.46"

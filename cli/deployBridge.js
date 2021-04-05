@@ -1,20 +1,21 @@
-import { ethers } from "ethers";
-import { writeFileSync, existsSync, mkdirSync } from "fs";
-import { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } from "../constants/contants";
-import { getWalletAndProvider, splitCommaList, waitForTx } from "../utils/utils";
-import { Command } from 'commander';
-import * as path from 'path';
-const { exec } = require("child_process");
+ 
+const ethers = require("ethers");
+const fs = require('fs');
 
-require('dotenv').config({ path: path.join(__dirname, '../env/deploy.env')});
+const { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } = require("../constants");
+const { getWalletAndProvider, splitCommaList, waitForTx } = require("../utils");
+const commander = require('commander');
+const path = require('path');
 
-async function registerResource(bridgeAddress: string, handlerAddress: string, targetTokenAddress: string, resourceId: string, chainProvider: ethers.providers.JsonRpcProvider, wallet: ethers.Wallet) {
+require('dotenv').config({ path: path.join(__dirname, '../env/deployBridge.env')});
+
+async function registerResource(bridgeAddress, handlerAddress, targetTokenAddress, resourceId, chainProvider, wallet) {
     const bridgeInstance = new ethers.Contract(bridgeAddress, ContractABIs.Bridge.abi, wallet);
     const tx = await bridgeInstance.adminSetResource(handlerAddress, resourceId, targetTokenAddress, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
     await waitForTx(chainProvider, tx.hash);
 }
 
-async function deployBridgeContract(chainId: number, initialRelayers: string[], wallet: ethers.Wallet, relayerThreshold: number = 1, fee: number = 0, proposalExpiry: number = 100) {
+async function deployBridgeContract(chainId, initialRelayers, wallet, relayerThreshold = 1, fee = 0, proposalExpiry = 100) {
     console.log(`Deploying bridge contract...`);
     let factory = new ethers.ContractFactory(ContractABIs.Bridge.abi, ContractABIs.Bridge.bytecode, wallet);
     let contract = await factory.deploy(
@@ -29,7 +30,7 @@ async function deployBridgeContract(chainId: number, initialRelayers: string[], 
     return contract.address;
 }
 
-export async function deployERC20Mintable(erc20Name: string, erc20Symbol: string, wallet: ethers.Wallet) {
+exports.deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet) {
     console.log(`Deploying ERC20 contract...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Mintable.abi, ContractABIs.Erc20Mintable.bytecode, wallet);
     const contract = await factory.deploy(erc20Name, erc20Symbol, 0, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
@@ -37,7 +38,7 @@ export async function deployERC20Mintable(erc20Name: string, erc20Symbol: string
     return contract.address;
 }
 
-async function deployERC20Handler(bridgeAddress: string, wallet: ethers.Wallet) {
+async function deployERC20Handler(bridgeAddress, wallet) {
     console.log(`Deploying ERC20 Handler...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Handler.abi, ContractABIs.Erc20Handler.bytecode, wallet);
     const contract = await factory.deploy(bridgeAddress, [], [], [], { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
@@ -46,7 +47,7 @@ async function deployERC20Handler(bridgeAddress: string, wallet: ethers.Wallet) 
 }
 
 
-export const deployBridge = new Command("deployBridge")
+exports.deployBridge = new commander.Command("deployBridge")
     .option("--relayersSrc <value>", "List of initial relayers (source)", splitCommaList, [])
     .option("--relayersDest <value>", "List of initial relayers (destination)", splitCommaList, [])
     .action(async args => {
@@ -107,10 +108,10 @@ export const deployBridge = new Command("deployBridge")
             let relayerConfig = { chains: [ { endpoint: process.env.SRC_CHAIN_RPC_WS.length ? process.env.SRC_CHAIN_RPC_WS : process.env.SRC_CHAIN_RPC_HTTPS, from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: process.env.DEST_CHAIN_RPC_WS.length ? process.env.DEST_CHAIN_RPC_WS : process.env.DEST_CHAIN_RPC_HTTPS, from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
             let publishPath = path.join(__dirname, '../publish/');
             if (!existsSync(publishPath)) {
-                mkdirSync(publishPath);
+                fs.mkdirSync(publishPath);
             }
-            writeFileSync(publishPath + 'config.json', JSON.stringify(relayerConfig) , 'utf-8'); 
-            writeFileSync(publishPath + 'addresses.txt', `🌉 ChainBridge Config\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}\n[${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}\n---------------------------------------------\n[${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}\n[${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}\n[${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}\n[${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}\n---------------------------------------------\nResource ID: ${process.env.RESOURCE_ID}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}\n[${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}`, 'utf-8');
+            fs.writeFileSync(publishPath + 'config.json', JSON.stringify(relayerConfig) , 'utf-8'); 
+            fs.writeFileSync(publishPath + 'addresses.txt', `🌉 ChainBridge Config\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}\n[${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}\n---------------------------------------------\n[${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}\n[${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}\n[${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}\n[${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}\n---------------------------------------------\nResource ID: ${process.env.RESOURCE_ID}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}\n[${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}`, 'utf-8');
 
             console.log(`
             🌉 ChainBridge Config

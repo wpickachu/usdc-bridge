@@ -2,14 +2,13 @@
 *.exe
 *.exe~
 *.dll
-*.js
 *.so
 *.dylib
 .DS_Store
 
 # Test binary, build with `go test -c`
 *.test
-testing.ts
+testing.js
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 coverage.txt
@@ -43,6 +42,5 @@ centrifuge-chain/
 /cfgBuilder/*.toml
 
 # node
-env/*.env
 node_modules/
 publish/

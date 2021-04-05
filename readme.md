@@ -32,7 +32,7 @@ To setup a validator on local machine, following steps are required:
 
 1. Build validator executable by isssuing the ```make build``` command within relayer directory.
 2. Update ```relayer.env``` file in env directory with private keys and public addresses of both chains that are verified as a validator.
-3. run ```yarn start-relayer``` within the root directory.
+3. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
 
 ##  Token Transfers
 

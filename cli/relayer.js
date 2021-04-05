@@ -5,7 +5,7 @@ const cliSelect = require('cli-select');
 const bridgeConfigs = require('../deployments/bridgeConfigs.json');
 
 const cfg = require('dotenv').config({ path: path.join(__dirname,'../env') + '/relayer.env' });
-console.log(cfg.parsed)
+
 exports.startRelayerCmd = new commander.Command("startRelayer")
     .description("Start a relayer")
     .action(async function (args) {

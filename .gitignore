@@ -25,7 +25,7 @@ bin/
 site/
 
 # golang
-*.env
+
 bridge
 keys/
 *.key
@@ -44,3 +44,4 @@ centrifuge-chain/
 # node
 node_modules/
 publish/
+*.env

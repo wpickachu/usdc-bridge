@@ -107,7 +107,9 @@ exports.deployBridge = new commander.Command("deployBridge")
             }
             if (!process.env.DEST_CHAIN_RPC_WS.length) destOpts['http'] = "true";
 
-            let relayerConfig = { chains: [ { endpoint: process.env.SRC_CHAIN_RPC_WS.length ? process.env.SRC_CHAIN_RPC_WS : process.env.SRC_CHAIN_RPC_HTTPS, from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: process.env.DEST_CHAIN_RPC_WS.length ? process.env.DEST_CHAIN_RPC_WS : process.env.DEST_CHAIN_RPC_HTTPS, from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
+            let resources = [];
+            resources.push({ tokens: { [SRC_CHAIN_DEFAULT_ID]: process.env.SRC_TOKEN, [DEST_CHAIN_DEFAULT_ID]: wrappedERC20Address }, resourceId: process.env.RESOURCE_ID });
+            let relayerConfig = { chains: [ { resources, endpoint: process.env.SRC_CHAIN_RPC_WS.length ? process.env.SRC_CHAIN_RPC_WS : process.env.SRC_CHAIN_RPC_HTTPS, from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: process.env.DEST_CHAIN_RPC_WS.length ? process.env.DEST_CHAIN_RPC_WS : process.env.DEST_CHAIN_RPC_HTTPS, from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
             let publishPath = path.join(__dirname, '../publish/');
             if (!fs.existsSync(publishPath)) {
                 fs.mkdirSync(publishPath);

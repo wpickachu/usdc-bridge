@@ -5,38 +5,41 @@ In its current state ChainBridge operates under a trusted federation model. Depo
 
 ##  Deployment
 1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env`` folder.
+
+| Variable | Description |
+| ----------- | ----------- |
+| SRC_CHAIN_RPC_HTTPS | RPC Url of source chain |
+| SRC_CHAIN_RPC_WS | WS Url of source chain |
+| SRC_CHAIN_NETWORK_ID | Network id of chain e.g 1 for Eth main net. |
+| SRC_CHAIN_NAME | Chain name e.g Ethereum |
+| SRC_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on source chain. |
+| SRC_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on source chain. |
+| SRC_TOKEN | Contract address of the token that will be transferred over the bridge |
+| DEST_CHAIN_RPC_HTTPS | RPC Url of destination chain |
+| DEST_CHAIN_RPC_WS | WS RPC Url of destination chain |
+| DEST_CHAIN_NETWORK_ID | Network id of chain e.g 2021 for Beresheet. |
+| DEST_CHAIN_NAME | Chain name e.g Edgeware |
+| DEST_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on destination chain. |
+| DEST_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on destination chain. |
+| RESOURCE_ID | Arbitrary 32 byte hex string that is used to identify specific token transfer on either side of the bridge|
+| TARGET_TOKEN_NAME | ERC20 Token name that will be transferred over the bridge |
+| TARGET_TOKEN_SYMBOL | ERC20 Token symbol that will be transferred over the bridge |
 ```
-# RPC Url of source chain
 SRC_CHAIN_RPC_HTTPS=
-# WS Url of source chain
 SRC_CHAIN_RPC_WS=
-# Network id of chain e.g 1 for Eth main net.
 SRC_CHAIN_NETWORK_ID=
-# Chain name e.g Ethereum
 SRC_CHAIN_NAME=
-# Public Address of the account which will be used to deploy bridge contracts on source chain.
 SRC_ADDRESS=
-# Private key of the address which will be used to deploy bridge contracts on source chain.
 SRC_CHAIN_PRIVATE_KEY=
-# Contract address of the token that will be transferred over the bridge
 SRC_TOKEN=
-# RPC Url of destination chain
 DEST_CHAIN_RPC_HTTPS=
-# WS RPC Url of destination chain
 DEST_CHAIN_RPC_WS=
-# Network id of chain e.g 2021 for Beresheet.
 DEST_CHAIN_NETWORK_ID=
-# Chain name e.g Edgeware
 DEST_CHAIN_NAME=
-# Public Address of the account which will be used to deploy bridge contracts on destination chain.
 DEST_ADDRESS=
-# Private key of the address which will be used to deploy bridge contracts on destination chain.
 DEST_CHAIN_PRIVATE_KEY=
-# Arbitrary 32 byte hex string that is used to identify specific token transfer on either side of the bridg
 RESOURCE_ID=
-# ERC20 Token name that will be transferred over the bridge
 TARGET_TOKEN_NAME=
-# ERC20 Token symbol that will be transferred over the bridge
 TARGET_TOKEN_SYMBOL=
 ```
 

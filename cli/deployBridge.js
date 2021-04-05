@@ -30,13 +30,15 @@ async function deployBridgeContract(chainId, initialRelayers, wallet, relayerThr
     return contract.address;
 }
 
-exports.deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet) {
+const deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet) {
     console.log(`Deploying ERC20 contract...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Mintable.abi, ContractABIs.Erc20Mintable.bytecode, wallet);
     const contract = await factory.deploy(erc20Name, erc20Symbol, 0, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
     await contract.deployed();
     return contract.address;
 }
+
+exports.deployERC20Mintable = deployERC20Mintable;
 
 async function deployERC20Handler(bridgeAddress, wallet) {
     console.log(`Deploying ERC20 Handler...`);
@@ -73,7 +75,7 @@ exports.deployBridge = new commander.Command("deployBridge")
 
             const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet);
             const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
-            const wrappedERC20Address = await deployERC20Mintable(`w${process.env.TARGET_TOKEN_NAME}`, `w${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
+            const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
             await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
 
 
@@ -107,7 +109,7 @@ exports.deployBridge = new commander.Command("deployBridge")
 
             let relayerConfig = { chains: [ { endpoint: process.env.SRC_CHAIN_RPC_WS.length ? process.env.SRC_CHAIN_RPC_WS : process.env.SRC_CHAIN_RPC_HTTPS, from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: process.env.DEST_CHAIN_RPC_WS.length ? process.env.DEST_CHAIN_RPC_WS : process.env.DEST_CHAIN_RPC_HTTPS, from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
             let publishPath = path.join(__dirname, '../publish/');
-            if (!existsSync(publishPath)) {
+            if (!fs.existsSync(publishPath)) {
                 fs.mkdirSync(publishPath);
             }
             fs.writeFileSync(publishPath + 'config.json', JSON.stringify(relayerConfig) , 'utf-8'); 

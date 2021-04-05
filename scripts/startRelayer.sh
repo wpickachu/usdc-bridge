@@ -14,7 +14,7 @@ if [ ! -f "$SPKFILE" ]; then
 fi
 
 DPKFILE=keys/"$RDEST_ADDRESS".key
-if [ ! -f "$DPKFILE"]; then 
+if [ ! -f "$DPKFILE" ]; then 
 ./build/chainbridge accounts import --privateKey $RDEST_CHAIN_PRIVATE_KEY
 fi
 

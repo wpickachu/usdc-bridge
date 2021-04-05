@@ -2,7 +2,7 @@ const commander = require('commander');
 const path = require('path');
 const fs = require('fs');
 const cliSelect = require('cli-select');
-const bridgeConfigs = require('../deployments/bridgeConfigs.json');
+const bridgeConfigs = require('../deployments/bridges.json');
 
 const cfg = require('dotenv').config({ path: path.join(__dirname,'../env') + '/relayer.env' });
 

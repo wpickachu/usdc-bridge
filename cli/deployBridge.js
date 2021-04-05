@@ -69,11 +69,11 @@ exports.deployBridge = new commander.Command("deployBridge")
             destinationWallet = _res.chainWallet;
             destinationChainProvider = _res.chainProvider;
 
-            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, args.relayersSrc, sourceWallet);
+            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, args.relayersSrc, sourceWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
             await registerResource(sourceBridgeAddress, sourceHandlerAddress, process.env.SRC_TOKEN, process.env.RESOURCE_ID, sourceChainProvider, sourceWallet);
 
-            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet);
+            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
             const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
             await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);

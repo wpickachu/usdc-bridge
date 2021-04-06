@@ -6,7 +6,7 @@
   "author": "Saad Ahmed Siddiqui",
   "license": "MIT",
   "scripts": {
-    "start-relayer": "node index.js startRelayer && ./scripts/startRelayer.sh"
+    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/startRelayer.sh"
   },
   "dependencies": {
     "cli-select": "^1.1.2",

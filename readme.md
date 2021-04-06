@@ -30,9 +30,10 @@ In its current state ChainBridge operates under a trusted federation model. Depo
 ## Run validator
 Execute the following steps to setup and run a validator node:
 
-1. Build validator executable by isssuing the ```make build``` command within **relayer** directory.
-2. Update ```relayer.env``` file within **env** directory with private keys and addresses from both chains that are verified as a validator.
-3. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
+1. Update ```relayer.env``` file within **env** directory with private keys and addresses from both chains that are verified as a validator.
+2. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
+
+**Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
 
 ##  Token Transfers
 

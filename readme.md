@@ -4,7 +4,7 @@ A bridge contract (or pallet in Substrate) on each chain forms either side of a 
 In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.  
 
 ##  Deployment
-1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env`` folder.
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.
 
 | Variable | Description |
 | ----------- | ----------- |

@@ -33,8 +33,8 @@ exports.compileMintableERC20 = async function(tokenName, tokenSymbol, decimalPla
     const input = {
         language: 'Solidity',
         sources: {
-            'CustomERC20PresetMinterPauser.sol': {
-                content: fs.readFileSync(`./contracts/custom/CustomERC20PresetMinterPauser.sol`, { encoding: 'utf-8' })
+            'ExtendedERC20PresetMinterPauser.sol': {
+                content: fs.readFileSync(`./contracts/custom/ExtendedERC20PresetMinterPauser.sol`, { encoding: 'utf-8' })
             }
         },
         settings: {
@@ -47,7 +47,7 @@ exports.compileMintableERC20 = async function(tokenName, tokenSymbol, decimalPla
     };
 
     var output = JSON.parse(solc.compile(JSON.stringify(input), { import: getContents }));
-    return output.contracts['CustomERC20PresetMinterPauser.sol']['CustomERC20PresetMinterPauser']
+    return output.contracts['ExtendedERC20PresetMinterPauser.sol']['ExtendedERC20PresetMinterPauser']
 }
 
 function getContents(fileName) {

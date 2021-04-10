@@ -2,7 +2,7 @@
 const ethers = require("ethers");
 const fs = require('fs');
 const { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } = require("../constants");
-const { getWalletAndProvider, splitCommaList, waitForTx } = require("../utils");
+const { getWalletAndProvider, splitCommaList, waitForTx, compileMintableERC20 } = require("../utils");
 const commander = require('commander');
 const path = require('path');
 
@@ -29,10 +29,11 @@ async function deployBridgeContract(chainId, initialRelayers, wallet, relayerThr
     return contract.address;
 }
 
-const deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet) {
+const deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet, decimals = 18) {
+    const compiledContract = await compileMintableERC20();
     console.log(`Deploying ERC20 contract...`);
-    const factory = new ethers.ContractFactory(ContractABIs.Erc20Mintable.abi, ContractABIs.Erc20Mintable.bytecode, wallet);
-    const contract = await factory.deploy(erc20Name, erc20Symbol, 0, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
+    const factory = new ethers.ContractFactory(compiledContract.abi, compiledContract.evm.bytecode.object, wallet);
+    const contract = await factory.deploy(erc20Name, erc20Symbol, decimals, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
     await contract.deployed();
     return contract.address;
 }
@@ -74,7 +75,7 @@ exports.deployBridge = new commander.Command("deployBridge")
 
             const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
-            const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet);
+            const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet, process.env.SRC_DECIMALS);
             await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
 
 

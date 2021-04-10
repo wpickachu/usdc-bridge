@@ -1,7 +1,6 @@
  
 const ethers = require("ethers");
 const fs = require('fs');
-
 const { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } = require("../constants");
 const { getWalletAndProvider, splitCommaList, waitForTx } = require("../utils");
 const commander = require('commander');

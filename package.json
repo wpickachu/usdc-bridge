@@ -6,7 +6,8 @@
   "author": "Saad Ahmed Siddiqui",
   "license": "MIT",
   "scripts": {
-    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/startRelayer.sh"
+    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/startRelayer.sh",
+    "add-relayer": "node index.js addRelayer"
   },
   "dependencies": {
     "@openzeppelin/contracts": "3.0.0",

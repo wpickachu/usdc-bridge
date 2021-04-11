@@ -33,6 +33,18 @@ Execute the following steps to setup and run a validator node:
 
 **Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
 
+## Add relayer
+
+To add a relayer simply update following variables in admin.env file and run yarn add-relayer
+```
+SRC_CHAIN_PRIVATE_KEY=
+DEST_CHAIN_PRIVATE_KEY=
+SRC_NEW_RELAYER_ADDR=
+DEST_NEW_RELAYER_ADDR=
+SRC_CHAIN_NETWORK_ID=
+DEST_CHAIN_NETWORK_ID=
+```
+
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.

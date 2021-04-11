@@ -35,7 +35,7 @@ Execute the following steps to setup and run a validator node:
 
 ## Add relayer
 
-To add a relayer simply update following variables in admin.env file and run yarn add-relayer
+To add a relayer simply update following variables in admin.env file and run ```yarn add-relayer```
 ```
 SRC_CHAIN_PRIVATE_KEY=
 DEST_CHAIN_PRIVATE_KEY=

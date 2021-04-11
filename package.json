@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/startRelayer.sh",
-    "add-relayer": "node index.js addRelayer"
+    "add-relayer": "node index.js admin addRelayer",
+    "add-token": "node index.js admin addToken"
   },
   "dependencies": {
     "@openzeppelin/contracts": "3.0.0",
@@ -15,6 +16,7 @@
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "ethers": "4.0.46",
+    "prompt": "^1.1.0",
     "solc": "^0.6.12"
   }
 }

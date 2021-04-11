@@ -4,27 +4,25 @@ A bridge contract (or pallet in Substrate) on each chain forms either side of a 
 In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.  
 
 ##  Deployment
-1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.
-
-| Variable | Description |
-| ----------- | ----------- |
-| SRC_CHAIN_RPC_HTTPS | RPC Url of source chain |
-| SRC_CHAIN_RPC_WS | WS Url of source chain |
-| SRC_CHAIN_NETWORK_ID | Network id of chain e.g 1 for Eth main net. |
-| SRC_CHAIN_NAME | Chain name e.g Ethereum |
-| SRC_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on source chain. |
-| SRC_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on source chain. |
-| SRC_TOKEN | Contract address of the token that will be transferred over the bridge |
-| DEST_CHAIN_RPC_HTTPS | RPC Url of destination chain |
-| DEST_CHAIN_RPC_WS | WS RPC Url of destination chain |
-| DEST_CHAIN_NETWORK_ID | Network id of chain e.g 2021 for Beresheet. |
-| DEST_CHAIN_NAME | Chain name e.g Edgeware |
-| DEST_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on destination chain. |
-| DEST_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on destination chain. |
-| RESOURCE_ID | Arbitrary 32 byte hex string that is used to identify specific token transfer on either side of the bridge|
-| TARGET_TOKEN_NAME | ERC20 Token name that will be transferred over the bridge |
-| TARGET_TOKEN_SYMBOL | ERC20 Token symbol that will be transferred over the bridge |
-
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder as follows.
+```
+SRC_CHAIN_RPC_HTTPS=
+SRC_CHAIN_RPC_WS=
+SRC_CHAIN_NETWORK_ID=
+SRC_CHAIN_NAME=
+SRC_ADDRESS=
+SRC_CHAIN_PRIVATE_KEY=
+SRC_TOKEN=
+DEST_CHAIN_RPC_HTTPS=
+DEST_CHAIN_RPC_WS=
+DEST_CHAIN_NETWORK_ID=
+DEST_CHAIN_NAME=
+DEST_ADDRESS=
+DEST_CHAIN_PRIVATE_KEY=
+RESOURCE_ID=
+TARGET_TOKEN_NAME=
+TARGET_TOKEN_SYMBOL=
+```
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains.
 
 ## Run validator

@@ -1,4 +1,4 @@
-#  Bridge deployment for Edgware <-> Ethereum  
+#  Bridge deployment for Edgeware <-> Ethereum  
 [Chainbridge](https://github.com/ChainSafe/ChainBridge) is an extensible cross-chain communication protocol. It currently supports bridging between EVM and Substrate based chains.
 A bridge contract (or pallet in Substrate) on each chain forms either side of a bridge. Handler contracts allow for customizable behavior upon receiving transactions to and from the bridge. For example locking up an asset on one side and minting a new one on the other. Its highly customizable - you can deploy a handler contract to perform any action you like.
 In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.  
@@ -23,33 +23,15 @@ RESOURCE_ID=
 TARGET_TOKEN_NAME=
 TARGET_TOKEN_SYMBOL=
 ```
-| Variable | Description |
-| ----------- | ----------- |
-| SRC_CHAIN_RPC_HTTPS | RPC Url of source chain |
-| SRC_CHAIN_RPC_WS | WS Url of source chain |
-| SRC_CHAIN_NETWORK_ID | Network id of chain e.g 1 for Eth main net. |
-| SRC_CHAIN_NAME | Chain name e.g Ethereum |
-| SRC_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on source chain. |
-| SRC_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on source chain. |
-| SRC_TOKEN | Contract address of the token that will be transferred over the bridge |
-| DEST_CHAIN_RPC_HTTPS | RPC Url of destination chain |
-| DEST_CHAIN_RPC_WS | WS RPC Url of destination chain |
-| DEST_CHAIN_NETWORK_ID | Network id of chain e.g 2021 for Beresheet. |
-| DEST_CHAIN_NAME | Chain name e.g Edgeware |
-| DEST_ADDRESS | Public Address of the account which will be used to deploy bridge contracts on destination chain. |
-| DEST_CHAIN_PRIVATE_KEY | Private key of the address which will be used to deploy bridge contracts on destination chain. |
-| RESOURCE_ID | Arbitrary 32 byte hex string that is used to identify specific token transfer on either side of the bridge|
-| TARGET_TOKEN_NAME | ERC20 Token name that will be transferred over the bridge |
-| TARGET_TOKEN_SYMBOL | ERC20 Token symbol that will be transferred over the bridge |
-
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains.
 
 ## Run validator
-To setup a validator on local machine, following steps are required:
+Execute the following steps to setup and run a validator node:
 
-1. Build validator executable by isssuing the ```make build``` command within relayer directory.
-2. Update ```relayer.env``` file in env directory with private keys and public addresses of both chains that are verified as a validator.
-3. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
+1. Update ```relayer.env``` file within **env** directory with private keys and addresses from both chains that are verified as a validator.
+2. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
+
+**Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
 
 ##  Token Transfers
 

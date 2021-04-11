@@ -43,5 +43,8 @@ centrifuge-chain/
 
 # node
 node_modules/
+artifacts/
+cache/
+.vscode/
 publish/
 *.env

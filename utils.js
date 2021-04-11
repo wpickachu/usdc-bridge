@@ -1,4 +1,6 @@
 const ethers = require('ethers');
+const fs = require('fs');
+const solc = require('solc');
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -24,4 +26,35 @@ exports.getWalletAndProvider = function(rpcUrl, privateKey, chainNetworkId = und
 
 exports.expandDecimals = function (amount, decimals = 18) {
     return ethers.utils.parseUnits(String(amount), decimals);
+}
+
+
+exports.compileMintableERC20 = async function(tokenName, tokenSymbol, decimalPlaces = 18) {
+    const input = {
+        language: 'Solidity',
+        sources: {
+            'ExtendedERC20PresetMinterPauser.sol': {
+                content: fs.readFileSync(`./contracts/custom/ExtendedERC20PresetMinterPauser.sol`, { encoding: 'utf-8' })
+            }
+        },
+        settings: {
+            outputSelection: {
+                '*': {
+                    '*': ['*']
+                }
+            }
+        }
+    };
+
+    var output = JSON.parse(solc.compile(JSON.stringify(input), { import: getContents }));
+    return output.contracts['ExtendedERC20PresetMinterPauser.sol']['ExtendedERC20PresetMinterPauser']
+}
+
+function getContents(fileName) {
+    try {
+        let contents = fs.readFileSync(`./contracts/custom/${fileName}`, { encoding: 'utf-8' });
+        return { contents };
+    } catch (err) {
+        return { error: 'File not found!' };
+    }
 }

@@ -45,6 +45,22 @@ SRC_CHAIN_NETWORK_ID=
 DEST_CHAIN_NETWORK_ID=
 ```
 
+## Add token
+
+To register more ERC20 compatible tokens on one of the existing bridges update following variables in ```admin.env``` file.
+```
+SRC_CHAIN_RPC_HTTPS=
+DEST_CHAIN_RPC_HTTPS=
+SRC_CHAIN_PRIVATE_KEY=<>
+DEST_CHAIN_PRIVATE_KEY=<>
+SRC_CHAIN_NETWORK_ID=<>
+DEST_CHAIN_NETWORK_ID=<>
+RESOURCE_ID=<>
+SRC_TOKEN=<>
+TARGET_TOKEN_NAME=<>
+TARGET_TOKEN_SYMBOL=<>
+```
+
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.

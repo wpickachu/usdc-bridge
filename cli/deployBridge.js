@@ -8,7 +8,7 @@ const path = require('path');
 
 require('dotenv').config({ path: path.join(__dirname, '../env/deployBridge.env')});
 
-async function registerResource(bridgeAddress, handlerAddress, targetTokenAddress, resourceId, chainProvider, wallet) {
+const registerResource = async function (bridgeAddress, handlerAddress, targetTokenAddress, resourceId, chainProvider, wallet) {
     const bridgeInstance = new ethers.Contract(bridgeAddress, ContractABIs.Bridge.abi, wallet);
     const tx = await bridgeInstance.adminSetResource(handlerAddress, resourceId, targetTokenAddress, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
     await waitForTx(chainProvider, tx.hash);
@@ -37,8 +37,6 @@ const deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet, deci
     await contract.deployed();
     return contract.address;
 }
-
-exports.deployERC20Mintable = deployERC20Mintable;
 
 async function deployERC20Handler(bridgeAddress, wallet) {
     console.log(`Deploying ERC20 Handler...`);
@@ -143,3 +141,6 @@ exports.deployBridge = new commander.Command("deployBridge")
         }
 
 });
+
+exports.deployERC20Mintable = deployERC20Mintable;
+exports.registerResource = registerResource;

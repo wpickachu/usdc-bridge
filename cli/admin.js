@@ -11,6 +11,43 @@ const { deployERC20Mintable, registerResource } = require('./deployBridge');
 const cfg = require('dotenv').config({ path: path.join(__dirname, '../env') + '/admin.env' });
 const prompt = require('prompt');
 
+
+const setAdmin = new commander.Command("setAdmin")
+    .option("--account <value>", "New admin address")
+    .action(async function (args) {
+
+        console.log(`Select bridge: `);
+        let options = bridgeConfigs.bridges.map((bridge, index) => {
+            return `${bridge.chains[0].name} - ${bridge.chains[1].name}`;
+        });
+
+        cliSelect({ values: options })
+        .then(async response => {
+
+            options = bridgeConfigs.bridges[response.id].chains.map(item => item.name);
+            cliSelect({ values: options }).then(async resp => {
+                let bridgeAddress = bridgeConfigs.bridges[response.id].chains[resp.id].opts.bridge;
+
+                let RPCURL = resp.id === 0 ? cfg.parsed.SRC_CHAIN_RPC_HTTPS : (resp.id === 1 ? cfg.parsed.DEST_CHAIN_RPC_HTTPS : '');
+                let PK = resp.id === 0 ? cfg.parsed.SRC_CHAIN_PRIVATE_KEY : (resp.id === 1 ? cfg.parsed.DEST_CHAIN_PRIVATE_KEY : '');
+                let NID = resp.id === 0 ? cfg.parsed.SRC_CHAIN_NETWORK_ID : (resp.id === 1 ? cfg.parsed.DEST_CHAIN_NETWORK_ID : '');
+
+                if (RPCURL.length) {
+                    _res = getWalletAndProvider(RPCURL, PK, Number(NID));
+                    _wallet = _res.chainWallet;
+                    _chainProvider = _res.chainProvider;
+
+                    const bridgeInstanceDest = new ethers.Contract(bridgeAddress, ContractABIs.Bridge.abi, _wallet);
+                    let tx = await bridgeInstanceDest.renounceAdmin(args.account);
+                    await waitForTx(tx, tx.hash);
+                }
+            });
+        })
+        .catch(err => {
+            process.exit();
+        });
+    });
+
 /**
  * Only adds to a deployed bridge
  */
@@ -58,7 +95,7 @@ const addRelayer = new commander.Command("addRelayer")
 
 
 const registerNewToken = new commander.Command("addToken")
-    .description("Registers a new token on the bridge.")
+    .description("Registers a new token on an existing bridge.")
     .action(async function (args) {
 
         console.log(`Select bridge: `);
@@ -146,3 +183,4 @@ const registerNewToken = new commander.Command("addToken")
 exports.admin = new commander.Command('admin')
     .addCommand(addRelayer)
     .addCommand(registerNewToken)
+    .addCommand(setAdmin)

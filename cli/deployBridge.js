@@ -112,30 +112,12 @@ exports.deployBridge = new commander.Command("deployBridge")
             if (!fs.existsSync(publishPath)) {
                 fs.mkdirSync(publishPath);
             }
-            fs.writeFileSync(publishPath + 'config.json', JSON.stringify(relayerConfig) , 'utf-8'); 
-            fs.writeFileSync(publishPath + 'addresses.txt', `🌉 ChainBridge Config\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}\n[${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}\n---------------------------------------------\n[${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}\n[${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}\n[${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}\n[${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}\n---------------------------------------------\nResource ID: ${process.env.RESOURCE_ID}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}\n[${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}`, 'utf-8');
+            let n = Date.now();
 
-            console.log(`
-            🌉 ChainBridge Config
-            ---------------------------------------------
-            [${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}
-            [${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}
-            ---------------------------------------------
-            [${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}
-            [${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}
-            ---------------------------------------------
-            [${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}
-            [${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}
-            ---------------------------------------------
-            [${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}
-            [${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}
-            ---------------------------------------------
-            Resource ID: ${process.env.RESOURCE_ID}
-            ---------------------------------------------
-            [${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}
-            [${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}
-            `);
-            console.log(`⚙️     config.json created to run as the first relayer!`);
+            fs.writeFileSync(publishPath + `config-${n}.json`, JSON.stringify(relayerConfig) , 'utf-8'); 
+            fs.writeFileSync(publishPath + `addresses-${n}.txt`, `🌉 ChainBridge Config\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}\n[${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}\n---------------------------------------------\n[${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}\n[${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}\n[${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}\n[${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}\n---------------------------------------------\nResource ID: ${process.env.RESOURCE_ID}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}\n[${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}`, 'utf-8');
+
+            console.log(`⚙️     config-${n}.json created to run as the first relayer!`);
         } catch (err) {
             console.log(err)
         }

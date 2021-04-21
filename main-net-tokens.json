@@ -4,55 +4,95 @@
         "name": "Synthetix Network Token",
         "symbol": "SNX",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0x68e44C4619db40ae1a0725e77C02587bC8fBD1c9/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "decimals": 18
     },
     {
         "address": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
         "name": "yearn.finance",
         "symbol": "YFI",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0x99519AcB025a0e0d44c3875A4BbF03af65933627/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000002"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000002",
+        "decimals": 18
     },
     {
         "address": "0xc00e94Cb662C3520282E6f5717214004A7f26888",
         "name": "Compound",
         "symbol": "COMP",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0x53CEedB4f6f277edfDDEdB91373B044FE6AB5958/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000003"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "decimals": 18
     },
     {
         "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
         "name": "Wrapped Ether",
         "symbol": "WETH",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0xf20d962a6c8f70c731bd838a3a388D7d48fA6e15/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000004",
+        "decimals": 18
     },
     {
         "address": "0x408e41876cCCDC0F92210600ef50372656052a38",
         "name": "Republic Token",
         "symbol": "REN",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0xAc6C38f2DeC391b478144Ae7F078D08B08d0a284/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000005"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "decimals": 18
     },
     {
         "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
         "name": "Tether USD",
         "symbol": "USDT",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0xde3A24028580884448a5397872046a019649b084/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000006"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000006",
+        "decimals": 6
     },
     {
         "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
         "name": "Dai Stablecoin",
         "symbol": "DAI",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0xbA7dEebBFC5fA1100Fb055a87773e1E99Cd3507a/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000007"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "decimals": 18
     },
     {
         "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
         "name": "Maker",
         "symbol": "MKR",
         "imageUri": "https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0x8DF92E9C0508aB0030d432DA9F2C65EB1Ee97620/logo.png",
-        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000008"
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000008",
+        "decimals": 18
+    },
+    {
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "imageUri": "",
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000009",
+        "decimals":6
+    },
+    {
+        "address": "0x903bef1736cddf2a537176cf3c64579c3867a881",
+        "name": "ICHI",
+        "symbol": "ICHI",
+        "imageUri": "",
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000010",
+        "decimals": 9
+    },
+    {
+        "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+        "name": "Curve DAO Token",
+        "symbol": "CRV",
+        "imageUri": "",
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000011",
+        "decimals": 18
+    },
+    {
+        "address": "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d",
+        "name": "Ren Bitcoin",
+        "symbol": "renBTC",
+        "imageUri": "",
+        "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000012",
+        "decimals": 8
     }
 ]

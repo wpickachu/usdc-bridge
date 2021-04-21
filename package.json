@@ -6,7 +6,7 @@
   "author": "Saad Ahmed Siddiqui",
   "license": "MIT",
   "scripts": {
-    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/startRelayer.sh",
+    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/setupKeyStore.sh && ./scripts/startRelayer.sh",
     "add-relayer": "node index.js admin addRelayer",
     "deploy-bridge":"node index.js deployBridge",
     "add-token": "node index.js admin addToken"

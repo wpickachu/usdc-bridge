@@ -10,7 +10,6 @@ exports.startRelayerCmd = new commander.Command("startRelayer")
     .description("Start a relayer")
     .action(async function (args) {
 
-
         console.log(`Select bridge: `);
         let options = bridgeConfigs.bridges.map((bridge, index) => {
             return `${bridge.chains[0].name} - ${bridge.chains[1].name}`;
@@ -20,8 +19,8 @@ exports.startRelayerCmd = new commander.Command("startRelayer")
         .then(response => {
 
             let configToWrite = bridgeConfigs.bridges[response.id];
-            configToWrite.chains[0].from = cfg.parsed.RSRC_ADDRESS;
-            configToWrite.chains[1].from = cfg.parsed.RDEST_ADDRESS;
+            configToWrite.chains[0].from = cfg.parsed.SRC_ADDR;
+            configToWrite.chains[1].from = cfg.parsed.DEST_ADDR;
             fs.writeFileSync(path.join(__dirname, '../relayer/') + `config.json`, JSON.stringify(configToWrite), 'utf-8');
         })
         .catch(err => {

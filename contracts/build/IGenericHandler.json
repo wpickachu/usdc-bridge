@@ -30,15 +30,15 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.4+commit.1dca32f3\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"resourceID\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"depositFunctionSig\",\"type\":\"bytes4\"},{\"internalType\":\"bytes4\",\"name\":\"executeFunctionSig\",\"type\":\"bytes4\"}],\"name\":\"setResource\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"ChainSafe Systems.\",\"methods\":{\"setResource(bytes32,address,bytes4,bytes4)\":{\"params\":{\"contractAddress\":\"Address of contract to be called when a deposit is made and a deposited is executed.\",\"depositFunctionSig\":\"Function signature of method to be called in {contractAddress} when a deposit is made.\",\"executeFunctionSig\":\"Function signature of method to be called in {contractAddress} when a deposit is executed.\",\"resourceID\":\"ResourceID to be used when making deposits.\"}}},\"title\":\"Interface for handler that handles generic deposits and deposit executions.\"},\"userdoc\":{\"methods\":{\"setResource(bytes32,address,bytes4,bytes4)\":{\"notice\":\"Correlates {resourceID} with {contractAddress}, {depositFunctionSig}, and {executeFunctionSig}.\"}}}},\"settings\":{\"compilationTarget\":{\"/home/saadjhk/Desktop/dTrade/chainbridge-deploy/cb-sol-cli/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol\":\"IGenericHandler\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/saadjhk/Desktop/dTrade/chainbridge-deploy/cb-sol-cli/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol\":{\"keccak256\":\"0x9f660f1583d7a7c27fff0c60a7f944f6f27f836f4577c10de1db38d58ea26077\",\"urls\":[\"bzz-raw://d782b3dc5499e19315007afa18f30327b044bf0d98f71413b129bb62ac8ad811\",\"dweb:/ipfs/QmbY4bKnqUJwMNw3JtR2hDH3gzSHoJopZkbykRxYcB7e3y\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.4+commit.1dca32f3\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"resourceID\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"contractAddress\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"depositFunctionSig\",\"type\":\"bytes4\"},{\"internalType\":\"bytes4\",\"name\":\"executeFunctionSig\",\"type\":\"bytes4\"}],\"name\":\"setResource\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"ChainSafe Systems.\",\"methods\":{\"setResource(bytes32,address,bytes4,bytes4)\":{\"params\":{\"contractAddress\":\"Address of contract to be called when a deposit is made and a deposited is executed.\",\"depositFunctionSig\":\"Function signature of method to be called in {contractAddress} when a deposit is made.\",\"executeFunctionSig\":\"Function signature of method to be called in {contractAddress} when a deposit is executed.\",\"resourceID\":\"ResourceID to be used when making deposits.\"}}},\"title\":\"Interface for handler that handles generic deposits and deposit executions.\"},\"userdoc\":{\"methods\":{\"setResource(bytes32,address,bytes4,bytes4)\":{\"notice\":\"Correlates {resourceID} with {contractAddress}, {depositFunctionSig}, and {executeFunctionSig}.\"}}}},\"settings\":{\"compilationTarget\":{\"/home/saadjhk/Desktop/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol\":\"IGenericHandler\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/saadjhk/Desktop/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol\":{\"keccak256\":\"0x9f660f1583d7a7c27fff0c60a7f944f6f27f836f4577c10de1db38d58ea26077\",\"urls\":[\"bzz-raw://d782b3dc5499e19315007afa18f30327b044bf0d98f71413b129bb62ac8ad811\",\"dweb:/ipfs/QmbY4bKnqUJwMNw3JtR2hDH3gzSHoJopZkbykRxYcB7e3y\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity 0.6.4;\n\n/**\n    @title Interface for handler that handles generic deposits and deposit executions.\n    @author ChainSafe Systems.\n */\ninterface IGenericHandler {\n    /**\n        @notice Correlates {resourceID} with {contractAddress}, {depositFunctionSig}, and {executeFunctionSig}.\n        @param resourceID ResourceID to be used when making deposits.\n        @param contractAddress Address of contract to be called when a deposit is made and a deposited is executed.\n        @param depositFunctionSig Function signature of method to be called in {contractAddress} when a deposit is made.\n        @param executeFunctionSig Function signature of method to be called in {contractAddress} when a deposit is executed.\n     */\n    function setResource(bytes32 resourceID, address contractAddress, bytes4 depositFunctionSig, bytes4 executeFunctionSig) external;\n}",
-  "sourcePath": "/home/saadjhk/Desktop/dTrade/chainbridge-deploy/cb-sol-cli/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
+  "sourcePath": "/home/saadjhk/Desktop/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
   "ast": {
-    "absolutePath": "/home/saadjhk/Desktop/dTrade/chainbridge-deploy/cb-sol-cli/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
+    "absolutePath": "/home/saadjhk/Desktop/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
     "exportedSymbols": {
       "IGenericHandler": [
         2989
@@ -228,193 +228,219 @@
     "src": "0:873:14"
   },
   "legacyAST": {
-    "absolutePath": "/home/saadjhk/Desktop/dTrade/chainbridge-deploy/cb-sol-cli/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
-    "exportedSymbols": {
-      "IGenericHandler": [
-        2989
-      ]
+    "attributes": {
+      "absolutePath": "/home/saadjhk/Desktop/chainbridge-solidity/contracts/interfaces/IGenericHandler.sol",
+      "exportedSymbols": {
+        "IGenericHandler": [
+          2989
+        ]
+      }
     },
-    "id": 2990,
-    "nodeType": "SourceUnit",
-    "nodes": [
+    "children": [
       {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "0.6",
+            ".4"
+          ]
+        },
         "id": 2975,
-        "literals": [
-          "solidity",
-          "0.6",
-          ".4"
-        ],
-        "nodeType": "PragmaDirective",
+        "name": "PragmaDirective",
         "src": "0:22:14"
       },
       {
-        "abstract": false,
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "interface",
-        "documentation": {
-          "id": 2976,
-          "nodeType": "StructuredDocumentation",
-          "src": "24:125:14",
-          "text": "@title Interface for handler that handles generic deposits and deposit executions.\n@author ChainSafe Systems."
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            2989
+          ],
+          "name": "IGenericHandler",
+          "scope": 2990
         },
-        "fullyImplemented": false,
-        "id": 2989,
-        "linearizedBaseContracts": [
-          2989
-        ],
-        "name": "IGenericHandler",
-        "nodeType": "ContractDefinition",
-        "nodes": [
+        "children": [
           {
-            "body": null,
-            "documentation": {
-              "id": 2977,
-              "nodeType": "StructuredDocumentation",
-              "src": "182:555:14",
-              "text": "@notice Correlates {resourceID} with {contractAddress}, {depositFunctionSig}, and {executeFunctionSig}.\n@param resourceID ResourceID to be used when making deposits.\n@param contractAddress Address of contract to be called when a deposit is made and a deposited is executed.\n@param depositFunctionSig Function signature of method to be called in {contractAddress} when a deposit is made.\n@param executeFunctionSig Function signature of method to be called in {contractAddress} when a deposit is executed."
+            "attributes": {
+              "text": "@title Interface for handler that handles generic deposits and deposit executions.\n@author ChainSafe Systems."
             },
-            "functionSelector": "bba8185a",
-            "id": 2988,
-            "implemented": false,
-            "kind": "function",
-            "modifiers": [],
-            "name": "setResource",
-            "nodeType": "FunctionDefinition",
-            "overrides": null,
-            "parameters": {
-              "id": 2986,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 2979,
-                  "name": "resourceID",
-                  "nodeType": "VariableDeclaration",
-                  "overrides": null,
-                  "scope": 2988,
-                  "src": "763:18:14",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
-                  },
-                  "typeName": {
-                    "id": 2978,
-                    "name": "bytes32",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "763:7:14",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes32",
-                      "typeString": "bytes32"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2981,
-                  "name": "contractAddress",
-                  "nodeType": "VariableDeclaration",
-                  "overrides": null,
-                  "scope": 2988,
-                  "src": "783:23:14",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2980,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "783:7:14",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2983,
-                  "name": "depositFunctionSig",
-                  "nodeType": "VariableDeclaration",
-                  "overrides": null,
-                  "scope": 2988,
-                  "src": "808:25:14",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes4",
-                    "typeString": "bytes4"
-                  },
-                  "typeName": {
-                    "id": 2982,
-                    "name": "bytes4",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "808:6:14",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes4",
-                      "typeString": "bytes4"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2985,
-                  "name": "executeFunctionSig",
-                  "nodeType": "VariableDeclaration",
-                  "overrides": null,
-                  "scope": 2988,
-                  "src": "835:25:14",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes4",
-                    "typeString": "bytes4"
-                  },
-                  "typeName": {
-                    "id": 2984,
-                    "name": "bytes4",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "835:6:14",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_bytes4",
-                      "typeString": "bytes4"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
+            "id": 2976,
+            "name": "StructuredDocumentation",
+            "src": "24:125:14"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "functionSelector": "bba8185a",
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
               ],
-              "src": "762:99:14"
+              "name": "setResource",
+              "overrides": null,
+              "scope": 2989,
+              "stateMutability": "nonpayable",
+              "virtual": false,
+              "visibility": "external"
             },
-            "returnParameters": {
-              "id": 2987,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "870:0:14"
-            },
-            "scope": 2989,
-            "src": "742:129:14",
-            "stateMutability": "nonpayable",
-            "virtual": false,
-            "visibility": "external"
+            "children": [
+              {
+                "attributes": {
+                  "text": "@notice Correlates {resourceID} with {contractAddress}, {depositFunctionSig}, and {executeFunctionSig}.\n@param resourceID ResourceID to be used when making deposits.\n@param contractAddress Address of contract to be called when a deposit is made and a deposited is executed.\n@param depositFunctionSig Function signature of method to be called in {contractAddress} when a deposit is made.\n@param executeFunctionSig Function signature of method to be called in {contractAddress} when a deposit is executed."
+                },
+                "id": 2977,
+                "name": "StructuredDocumentation",
+                "src": "182:555:14"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "resourceID",
+                      "overrides": null,
+                      "scope": 2988,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes32",
+                          "type": "bytes32"
+                        },
+                        "id": 2978,
+                        "name": "ElementaryTypeName",
+                        "src": "763:7:14"
+                      }
+                    ],
+                    "id": 2979,
+                    "name": "VariableDeclaration",
+                    "src": "763:18:14"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "contractAddress",
+                      "overrides": null,
+                      "scope": 2988,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 2980,
+                        "name": "ElementaryTypeName",
+                        "src": "783:7:14"
+                      }
+                    ],
+                    "id": 2981,
+                    "name": "VariableDeclaration",
+                    "src": "783:23:14"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "depositFunctionSig",
+                      "overrides": null,
+                      "scope": 2988,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes4",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes4",
+                          "type": "bytes4"
+                        },
+                        "id": 2982,
+                        "name": "ElementaryTypeName",
+                        "src": "808:6:14"
+                      }
+                    ],
+                    "id": 2983,
+                    "name": "VariableDeclaration",
+                    "src": "808:25:14"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "executeFunctionSig",
+                      "overrides": null,
+                      "scope": 2988,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes4",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes4",
+                          "type": "bytes4"
+                        },
+                        "id": 2984,
+                        "name": "ElementaryTypeName",
+                        "src": "835:6:14"
+                      }
+                    ],
+                    "id": 2985,
+                    "name": "VariableDeclaration",
+                    "src": "835:25:14"
+                  }
+                ],
+                "id": 2986,
+                "name": "ParameterList",
+                "src": "762:99:14"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 2987,
+                "name": "ParameterList",
+                "src": "870:0:14"
+              }
+            ],
+            "id": 2988,
+            "name": "FunctionDefinition",
+            "src": "742:129:14"
           }
         ],
-        "scope": 2990,
+        "id": 2989,
+        "name": "ContractDefinition",
         "src": "150:723:14"
       }
     ],
+    "id": 2990,
+    "name": "SourceUnit",
     "src": "0:873:14"
   },
   "compiler": {
@@ -422,8 +448,8 @@
     "version": "0.6.4+commit.1dca32f3.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.1.0",
-  "updatedAt": "2021-02-11T12:39:00.963Z",
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-04-22T06:05:54.806Z",
   "devdoc": {
     "author": "ChainSafe Systems.",
     "methods": {

@@ -16,10 +16,12 @@ exports.waitForTx = async (provider, hash) => {
 exports.splitCommaList = (csl) => csl.split(",")
 
 exports.getWalletAndProvider = function(rpcUrl, privateKey, chainNetworkId = undefined) {
-    let chainProvider = chainNetworkId ? new ethers.providers.JsonRpcProvider(rpcUrl) : new ethers.providers.JsonRpcProvider(rpcUrl, {
-        name: "custom",
-        chainId: chainNetworkId
-    });
+    let chainProvider = chainNetworkId
+      ? new ethers.providers.JsonRpcProvider(rpcUrl, {
+          name: "custom",
+          chainId: chainNetworkId,
+        })
+      : new ethers.providers.JsonRpcProvider(rpcUrl);
     let chainWallet = new ethers.Wallet(privateKey, chainProvider);
     return { chainProvider, chainWallet };
 }

@@ -31,7 +31,7 @@ DEST_MULTISIG=
 SRC_TOKEN=
 # decimal places of erc20
 SRC_DECIMALS=
-# 32 byte random hex string for identifying this token over the bridge
+# 32 byte random hex string for identifying this token over the bridge. Note least significant byte must contain a chain ID
 RESOURCE_ID=
 # Token Name and Symbol that gets deployed on destination chain
 TARGET_TOKEN_NAME=
@@ -64,7 +64,7 @@ Complete setting up the relayer from previous heading and simply run ```yarn sta
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.
-1. An **approve** call from ERC20 contract on source/destination bridge with address of handler contract deployed and cofigured on chain,
+1. An **approve** call from ERC20 contract on source/destination bridge with address of handler contract deployed and configured on chain,
 2. A **deposit** call to the bridge should originate from the address that is willing to spend with first parameter being chainId (destination), resource id of the token that needs to be transferred, data is a concatenated byte value with first 32 byte is the amount of tokens to transfer which is padded to 32 bytes with extra 0s, 2nd being the length of recipient address also padded to 32 bytes and last part containing the actual recipient address.
 
 ##  Whats Next

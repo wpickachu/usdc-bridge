@@ -69,45 +69,59 @@ exports.deployBridge = new commander.Command("deployBridge")
 
             const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, args.relayersSrc, sourceWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
-            await registerResource(sourceBridgeAddress, sourceHandlerAddress, process.env.SRC_TOKEN, process.env.RESOURCE_ID, sourceChainProvider, sourceWallet);
 
             const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
-            const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet, process.env.SRC_DECIMALS);
-            await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
 
-            // No need of admin for this
-            const bridgeInstance = new ethers.Contract(destBridgeAddress, ContractABIs.Bridge.abi, destinationWallet);
-            let tx = await bridgeInstance.adminSetBurnable(destHanderAddress, wrappedERC20Address, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
-            await waitForTx(destinationChainProvider, tx.hash);
+            let resources = [];
+            if (process.env.SRC_TOKEN) {
+                // Registration one "source" side
+                await registerResource(sourceBridgeAddress, sourceHandlerAddress, process.env.SRC_TOKEN, process.env.RESOURCE_ID, sourceChainProvider, sourceWallet);
+                // mintable deployment on "dest" side
+                const wrappedERC20Address = await deployERC20Mintable(`Wrapped ${process.env.TARGET_TOKEN_NAME}`, `Wrapped ${process.env.TARGET_TOKEN_NAME}`, destinationWallet, process.env.SRC_DECIMALS);
+                await registerResource(destBridgeAddress, destHanderAddress, wrappedERC20Address, process.env.RESOURCE_ID, destinationChainProvider, destinationWallet);
+                let bridgeInstance = new ethers.Contract(destBridgeAddress, ContractABIs.Bridge.abi, destinationWallet);
+                let tx = await bridgeInstance.adminSetBurnable(destHanderAddress, wrappedERC20Address, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
+                await waitForTx(destinationChainProvider, tx.hash);
+                // change deploy mintable erc20 owner to multi and multi sig will 
+                // grant minter role to handler but lets go simple for now
+                const erc20Instance = new ethers.Contract(wrappedERC20Address, ContractABIs.Erc20Mintable.abi, destinationWallet);
+                let MINTER_ROLE = await erc20Instance.MINTER_ROLE();
+                tx = await erc20Instance.grantRole(MINTER_ROLE, destHanderAddress);
+                await waitForTx(destinationChainProvider, tx.hash);
 
-            // change deploy mintable erc20 owner to multi and multi sig will 
-            // grant minter role to handler but lets go simple for now
-            const erc20Instance = new ethers.Contract(wrappedERC20Address, ContractABIs.Erc20Mintable.abi, destinationWallet);
-            let MINTER_ROLE = await erc20Instance.MINTER_ROLE();
+                resources.push({ tokens: { [SRC_CHAIN_DEFAULT_ID]: process.env.SRC_TOKEN, [DEST_CHAIN_DEFAULT_ID]: wrappedERC20Address }, resourceId: process.env.RESOURCE_ID });
+            }
 
-            tx = await erc20Instance.grantRole(MINTER_ROLE, destHanderAddress);
-            await waitForTx(destinationChainProvider, tx.hash);
+            if (process.env.SRC_MULTISIG.length && process.env.DEST_MULTISIG.length) {
+                let srcbridgeInstance = new ethers.Contract(sourceBridgeAddress, ContractABIs.Bridge.abi, sourceWallet);
+                let destbridgeInstance = new ethers.Contract(destBridgeAddress, ContractABIs.Bridge.abi, destinationWallet);
 
+                let tx = await srcbridgeInstance.renounceAdmin(process.env.SRC_MULTISIG);
+                await waitForTx(tx, tx.hash);
+
+                tx = await destbridgeInstance.renounceAdmin(process.env.DEST_MULTISIG);
+                await waitForTx(tx, tx.hash);
+            }
+
+            let gasLimit = "1000000", maxGasPrice = "10000000000";
             let srcOpts = {
                 bridge: sourceBridgeAddress,
                 erc20Handler: sourceHandlerAddress,
                 genericHandler: sourceHandlerAddress,
-                gasLimit: "1000000",
-                maxGasPrice: "10000000000"
+                gasLimit,
+                maxGasPrice
             };
             if (!process.env.SRC_CHAIN_RPC_WS.length) srcOpts['http'] = "true";
             let destOpts = {
                 bridge: destBridgeAddress,
                 erc20Handler: destHanderAddress,
                 genericHandler: destHanderAddress,
-                gasLimit: "1000000",
-                maxGasPrice: "10000000000"
+                gasLimit,
+                maxGasPrice
             }
             if (!process.env.DEST_CHAIN_RPC_WS.length) destOpts['http'] = "true";
 
-            let resources = [];
-            resources.push({ tokens: { [SRC_CHAIN_DEFAULT_ID]: process.env.SRC_TOKEN, [DEST_CHAIN_DEFAULT_ID]: wrappedERC20Address }, resourceId: process.env.RESOURCE_ID });
             let relayerConfig = { chains: [ { resources, endpoint: process.env.SRC_CHAIN_RPC_WS.length ? process.env.SRC_CHAIN_RPC_WS : process.env.SRC_CHAIN_RPC_HTTPS, from: process.env.SRC_ADDRESS, id: SRC_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.SRC_CHAIN_NAME, opts: srcOpts }, { endpoint: process.env.DEST_CHAIN_RPC_WS.length ? process.env.DEST_CHAIN_RPC_WS : process.env.DEST_CHAIN_RPC_HTTPS, from: process.env.DEST_ADDRESS, id: DEST_CHAIN_DEFAULT_ID.toString(), type: 'ethereum', name: process.env.DEST_CHAIN_NAME, opts: destOpts }] };
             let publishPath = path.join(__dirname, '../publish/');
 
@@ -117,7 +131,6 @@ exports.deployBridge = new commander.Command("deployBridge")
             fs.writeFileSync(publishPath + `addresses-${n}.txt`, `🌉 ChainBridge Config\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Address: ${sourceBridgeAddress}\n[${process.env.SRC_CHAIN_NAME}] Handler Address: ${sourceHandlerAddress}\n---------------------------------------------\n[${process.env.DEST_CHAIN_NAME}] Bridge Address: ${destBridgeAddress}\n[${process.env.DEST_CHAIN_NAME}] Handler Address: ${destHanderAddress}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] ERC20: ${process.env.SRC_TOKEN}\n[${process.env.DEST_CHAIN_NAME}] ERC20: ${wrappedERC20Address}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Bridge Owner: ${process.env.SRC_ADDRESS}\n[${process.env.DEST_CHAIN_NAME}] Bridge Owner: ${process.env.DEST_ADDRESS}\n---------------------------------------------\nResource ID: ${process.env.RESOURCE_ID}\n---------------------------------------------\n[${process.env.SRC_CHAIN_NAME}] Relayers: ${args.relayersSrc.join(',')}\n[${process.env.DEST_CHAIN_NAME}] Relayers: ${args.relayersDest.join(',')}`, 'utf-8');
             console.log(`⚙️     config-${n}.json created to run as the first relayer!`);
 
-            // Grant roles of admin of bridges, erc20 to multi sig addresses
         } catch (err) {
             console.log(err)
         }

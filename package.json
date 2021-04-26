@@ -6,17 +6,18 @@
   "author": "Saad Ahmed Siddiqui",
   "license": "MIT",
   "scripts": {
-    "start-relayer": "node index.js startRelayer && ./scripts/buildRelayer.sh && ./scripts/setupKeyStore.sh && ./scripts/startRelayer.sh",
+    "setup-relayer": "node index.js setupRelayer && ./scripts/buildRelayer.sh && ./scripts/setupKeyStore.sh",
+    "start-relayer": "./scripts/startRelayer.sh",
     "add-relayer": "node index.js admin addRelayer",
-    "deploy-bridge":"node index.js deployBridge",
+    "deploy-bridge": "node index.js deployBridge",
     "add-token": "node index.js admin addToken"
   },
   "dependencies": {
     "@openzeppelin/contracts": "3.0.0",
-    "cli-select": "^1.1.2",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "ethers": "4.0.46",
+    "inquirer": "^8.0.0",
     "prompt": "^1.1.0",
     "solc": "^0.6.12"
   }

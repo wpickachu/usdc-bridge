@@ -3,11 +3,11 @@
         {
             "chains": [
                 {
-                    "endpoint": "wss://kovan.infura.io/ws/v3/25d8ff0ba27c4b1da084146860d67868",
-                    "from": "0xDa53d33E49F1f4689C3B9e1EB6E265244C77B92B",
+                    "endpoint": "",
+                    "from": "",
                     "id": "0",
                     "type": "ethereum",
-                    "name": "Kovan",
+                    "name": "Kovan (test)",
                     "opts": {
                         "bridge": "0x2B2242Db1EadB6FB41E679D2Efa15fF05061D2ac",
                         "erc20Handler": "0x56583a149E9026ba86d75949521C09874f247dd7",
@@ -17,11 +17,11 @@
                     }
                 },
                 {
-                    "endpoint": "http://beresheet1.edgewa.re:9933/",
-                    "from": "0x19E7E376E7C213B7E7e7e46cc70A5dD086DAff2A",
+                    "endpoint": "",
+                    "from": "",
                     "id": "1",
                     "type": "ethereum",
-                    "name": "Beresheet",
+                    "name": "Beresheet (test)",
                     "opts": {
                         "bridge": "0x23D50cE6316145fA4Ebb713f26891238527EF276",
                         "erc20Handler": "0x5F1a4307E725203538C58AFF18753637b8770192",
@@ -52,20 +52,11 @@
         {
             "chains": [
                 {
-                    "resources": [
-                        {
-                            "tokens": {
-                                "0": "0xda53d33e49f1f4689c3b9e1eb6e265244c77b92b",
-                                "1": "0xEC0Db17F113446a7aC85Bd4dd79E9c17A334eB46"
-                            },
-                            "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000000"
-                        }
-                    ],
-                    "endpoint": "wss://goerli.infura.io/ws/v3/25d8ff0ba27c4b1da084146860d67868",
-                    "from": "0xDa53d33E49F1f4689C3B9e1EB6E265244C77B92B",
+                    "endpoint": "",
+                    "from": "",
                     "id": "0",
                     "type": "ethereum",
-                    "name": "Goerli",
+                    "name": "Goerli (test)",
                     "opts": {
                         "bridge": "0xB1189C149D133b1397E879C9C494cc548a4744FC",
                         "erc20Handler": "0x96123Dc10591f68e6e8E584DC5A1bA3938787358",
@@ -75,11 +66,11 @@
                     }
                 },
                 {
-                    "endpoint": "http://beresheet1.edgewa.re:9933",
-                    "from": "0x19E7E376E7C213B7E7e7e46cc70A5dD086DAff2A",
+                    "endpoint": "",
+                    "from": "",
                     "id": "1",
                     "type": "ethereum",
-                    "name": "Beresheet",
+                    "name": "Beresheet (test)",
                     "opts": {
                         "bridge": "0xf23cE281BC7B378f1424Ba61de92A8070c8023C5",
                         "erc20Handler": "0xD323FbDE9D287A288d22F9F4B30E61d2500aa962",
@@ -88,6 +79,15 @@
                         "maxGasPrice": "10000000000",
                         "http": "true"
                     }
+                }
+            ],
+            "resources": [
+                {
+                    "tokens": {
+                        "0": "0x7D6c36Bd3d5C977bd9eF7565d1b8FD2d5060C598",
+                        "1": "0xEC0Db17F113446a7aC85Bd4dd79E9c17A334eB46"
+                    },
+                    "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000000"
                 }
             ]
         }

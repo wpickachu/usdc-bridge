@@ -3,12 +3,12 @@
 set -a; . ./env/relayer.env; set +a;
 cd ./relayer;
 
-SPKFILE=keys/"$SRC_ADDR".key
+SPKFILE=keys/"$CH1_ADDR".key
 if [ ! -f "$SPKFILE" ]; then
-./build/chainbridge accounts import --privateKey $SRC_PK
+./build/chainbridge accounts import --privateKey $CH1_PK --password $KEYSTORE_PASSWORD
 fi
 
-DPKFILE=keys/"$DEST_ADDR".key
+DPKFILE=keys/"$CH2_ADDR".key
 if [ ! -f "$DPKFILE" ]; then 
-./build/chainbridge accounts import --privateKey $DEST_PK
+./build/chainbridge accounts import --privateKey $CH2_PK --password $KEYSTORE_PASSWORD
 fi

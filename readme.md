@@ -4,62 +4,62 @@ A bridge contract (or pallet in Substrate) on each chain forms either side of a 
 In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.  
 
 ##  Deployment
-1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder as follows.
+1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.
 ```
-SRC_CHAIN_RPC_HTTPS=
-SRC_CHAIN_RPC_WS=
 SRC_CHAIN_NETWORK_ID=
 SRC_CHAIN_NAME=
 SRC_ADDRESS=
 SRC_CHAIN_PRIVATE_KEY=
-SRC_TOKEN=
-DEST_CHAIN_RPC_HTTPS=
-DEST_CHAIN_RPC_WS=
+SRC_CHAIN_RPC_HTTPS=
+# ws url is optional, chainbridge works with https but ws is preffered
+SRC_CHAIN_RPC_WS=
+# multisig address is optional setting it will change admin of bridge to specified bridge
+SRC_MULTISIG=
+
 DEST_CHAIN_NETWORK_ID=
 DEST_CHAIN_NAME=
 DEST_ADDRESS=
 DEST_CHAIN_PRIVATE_KEY=
+DEST_CHAIN_RPC_HTTPS=
+# ws url is optional, chainbridge works with https but ws is preffered
+DEST_CHAIN_RPC_WS=
+# multisig address is optional setting it will change admin of bridge to specified bridge
+DEST_MULTISIG=
+
+# 32 BYTE HEX string that identifies token on either side of the bridge
+# src token is the address of erc20 on source chain
+SRC_TOKEN=
+# decimal places of erc20
+SRC_DECIMALS=
+# 32 byte random hex string for identifying this token over the bridge
 RESOURCE_ID=
+# Token Name and Symbol that gets deployed on destination chain
 TARGET_TOKEN_NAME=
 TARGET_TOKEN_SYMBOL=
+
+# in Wei
+BRIDGE_TRANSFER_FEE=
 ```
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains.
 
-## Run validator
-Execute the following steps to setup and run a validator node:
+## Setup relayer
+To run as a relayer on one of our deployed bridge, the following steps are required:
+1.  Get ```relayer``` role granted on the bridge where you want to run as a relayer.
+2.  Setup the repository.
+3.  Rename ```relayer.env.example``` to ```relayer.env``` within env directory and set these environment variables.
+```bash
+CH1_ADDR=
+CH1_PK=
 
-1. Update ```relayer.env``` file within **env** directory with private keys and addresses from both chains that are verified as a validator.
-2. run ```yarn start-relayer``` within the root directory. (When running for the first time itll ask you to setup password to run as a validator)
-
+CH2_ADDR=
+CH2_PK=
+KEYSTORE_PASSWORD=
+```
+4.  run ```yarn setup-relayer``` to create a configuration file for an existing bridge.
 **Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
 
-## Add relayer
-
-To add a relayer simply update following variables in admin.env file and run ```yarn add-relayer```
-```
-SRC_CHAIN_PRIVATE_KEY=
-DEST_CHAIN_PRIVATE_KEY=
-SRC_NEW_RELAYER_ADDR=
-DEST_NEW_RELAYER_ADDR=
-SRC_CHAIN_NETWORK_ID=
-DEST_CHAIN_NETWORK_ID=
-```
-
-## Add token
-
-To register more ERC20 compatible tokens on one of the existing bridges update following variables in ```admin.env``` file.
-```
-SRC_CHAIN_RPC_HTTPS=
-DEST_CHAIN_RPC_HTTPS=
-SRC_CHAIN_PRIVATE_KEY=
-DEST_CHAIN_PRIVATE_KEY=
-SRC_CHAIN_NETWORK_ID=
-DEST_CHAIN_NETWORK_ID=
-RESOURCE_ID=
-SRC_TOKEN=
-TARGET_TOKEN_NAME=
-TARGET_TOKEN_SYMBOL=
-```
+## Start Relayer
+Complete setting up the relayer from previous heading and simply run ```yarn start-relayer```.
 
 ##  Token Transfers
 

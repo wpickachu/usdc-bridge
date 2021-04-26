@@ -13,7 +13,7 @@ SRC_CHAIN_PRIVATE_KEY=
 SRC_CHAIN_RPC_HTTPS=
 # ws url is optional, chainbridge works with https but ws is preffered
 SRC_CHAIN_RPC_WS=
-# multisig address is optional setting it will change admin of bridge to specified bridge
+# multisig address is optional setting it will change admin of bridge to specified address
 SRC_MULTISIG=
 
 DEST_CHAIN_NETWORK_ID=
@@ -23,7 +23,7 @@ DEST_CHAIN_PRIVATE_KEY=
 DEST_CHAIN_RPC_HTTPS=
 # ws url is optional, chainbridge works with https but ws is preffered
 DEST_CHAIN_RPC_WS=
-# multisig address is optional setting it will change admin of bridge to specified bridge
+# multisig address is optional setting it will change admin of bridge to specified address
 DEST_MULTISIG=
 
 # 32 BYTE HEX string that identifies token on either side of the bridge

@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const bridgeConfigs = require('../deployments/bridges.json');
-
 const cfg = require('dotenv').config({ path: path.join(__dirname, '../env') + '/relayer.env' });
 
 exports.startRelayerCmd = new commander.Command("setupRelayer")

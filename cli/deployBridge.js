@@ -38,6 +38,20 @@ const deployERC20Mintable = async function (erc20Name, erc20Symbol, wallet, deci
     return contract.address;
 }
 
+const deployMintableCoinFactory = async function(wallet) {
+    const factory = new ethers.ContractFactory(ContractABIs.FDERC20Mintable.abi, ContractABIs.FDERC20Mintable.bytecode, wallet);
+    const contract = await factory.deploy({ gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
+    await contract.deployed();
+    return contract.address;
+}
+
+const deployCloneableERC20 = async function (wallet) {
+    const factory = new ethers.ContractFactory(ContractABIs.CloneableMintableERC20.abi, ContractABIs.CloneableMintableERC20.bytecode, wallet);
+    const contract = await factory.deploy({ gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
+    await contract.deployed();
+    return contract.address;
+}
+
 async function deployERC20Handler(bridgeAddress, wallet) {
     console.log(`Deploying ERC20 Handler...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Handler.abi, ContractABIs.Erc20Handler.bytecode, wallet);
@@ -102,6 +116,12 @@ exports.deployBridge = new commander.Command("deployBridge")
 
                 tx = await destbridgeInstance.renounceAdmin(process.env.DEST_MULTISIG);
                 await waitForTx(tx, tx.hash);
+
+                // if multi sig exists 
+                // then we deploy a factory on destination
+                // this takes on the assumption that the source already
+                // has many erc20 tokens which need to be transferred to the other side
+
             }
 
             let gasLimit = "1000000", maxGasPrice = "10000000000";

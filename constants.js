@@ -15,5 +15,7 @@ exports.ContractABIs = {
     GenericHandler: require(CONTRACT_PATH + "/build/GenericHandler.json"),
     CentrifugeAssetStore: require(CONTRACT_PATH + "/build/CentrifugeAsset.json"),
     WETC: require(CONTRACT_PATH + "/WETC.json"),
-    HandlerHelpers: require(CONTRACT_PATH + "/build/HandlerHelpers.json")
+    HandlerHelpers: require(CONTRACT_PATH + "/build/HandlerHelpers.json"),
+    MintableCoinFactory: require(CONTRACT_PATH + "/build/MintableCoinFactory.json"),
+    CloneableMintableERC20: require(CONTRACT_PATH + "/build/CloneableMintableERC20.json")
 }

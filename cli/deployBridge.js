@@ -2,7 +2,7 @@
 const ethers = require("ethers");
 const fs = require('fs');
 const { ContractABIs, GAS_PRICE, GAS_LIMIT, DEST_CHAIN_DEFAULT_ID, SRC_CHAIN_DEFAULT_ID } = require("../constants");
-const { getWalletAndProvider, splitCommaList, waitForTx, compileMintableERC20 } = require("../utils");
+const { getWalletAndProvider, waitForTx, compileMintableERC20 } = require("../utils");
 const commander = require('commander');
 const path = require('path');
 
@@ -122,12 +122,7 @@ function publishRelayerConfiguration(relayerConfig) {
 }
 
 exports.deployBridge = new commander.Command("deployBridge")
-    .option("--relayersSrc <value>", "List of initial relayers (source)", splitCommaList, [])
-    .option("--relayersDest <value>", "List of initial relayers (destination)", splitCommaList, [])
     .action(async args => {
-        if (!args.relayersSrc.length) args.relayersSrc.push(process.env.SRC_ADDRESS);
-        if (!args.relayersDest.length) args.relayersDest.push(process.env.DEST_ADDRESS);
-
         try {
             console.log(`Deploying chainsafe's chainbridge... `);
 
@@ -148,9 +143,9 @@ exports.deployBridge = new commander.Command("deployBridge")
              * Deployment of main
              * bridge and handler contracts
              */
-            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, args.relayersSrc, sourceWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
+            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [], sourceWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
-            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, args.relayersDest, destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
+            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [], destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
             const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
 
             /**

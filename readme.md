@@ -23,6 +23,8 @@ In its current state ChainBridge operates under a trusted federation model. Depo
   mkdir ~/go
   ```
 
+  Install [docker](https://docs.docker.com/engine/install/ubuntu/).
+
   
 ##  Deployment
 1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.

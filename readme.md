@@ -56,7 +56,8 @@ CH2_PK=
 KEYSTORE_PASSWORD=
 ```
 4.  run ```yarn setup-relayer``` to create a configuration file for an existing bridge.
-**Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
+
+**Note:** If the scripts fail to run due to permission errors, please provide execution permission to all the files in the scripts folder.
 
 ## Start Relayer
 Copmplete setting up the relayer config using setup relayer section and run ```yarn start-relayer```.

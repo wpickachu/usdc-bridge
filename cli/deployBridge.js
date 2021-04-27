@@ -7,8 +7,10 @@ const commander = require('commander');
 const path = require('path');
 
 require('dotenv').config({ path: path.join(__dirname, '../env/deployBridge.env')});
+const SGAS_LIMIT = Number(process.env.SGAS_LIMIT), SGAS_PRICE = Number(process.env.SGAS_PRICE);
+const DGAS_LIMIT = Number(process.env.DGAS_LIMIT), DGAS_PRICE = Number(process.env.DGAS_PRICE);
 
-const deployBridgeContract = async function(chainId, initialRelayers, wallet, relayerThreshold = 1, fee = 0, proposalExpiry = 100) {
+const deployBridgeContract = async function(chainId, initialRelayers, wallet, relayerThreshold = 1, fee = 0, proposalExpiry = 100, gasPrice, gasLimit) {
     console.log(`Deploying bridge contract...`);
     let factory = new ethers.ContractFactory(ContractABIs.Bridge.abi, ContractABIs.Bridge.bytecode, wallet);
     let contract = await factory.deploy(
@@ -17,16 +19,16 @@ const deployBridgeContract = async function(chainId, initialRelayers, wallet, re
         relayerThreshold.toString(),
         ethers.utils.parseEther(fee.toString()),
         proposalExpiry.toString(),
-        { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT }
+        { gasPrice, gasLimit }
     );
     await contract.deployed();
     return contract.address;
 }
 
-const deployERC20Handler = async function(bridgeAddress, wallet) {
+const deployERC20Handler = async function(bridgeAddress, wallet, gasPrice, gasLimit) {
     console.log(`Deploying ERC20 Handler...`);
     const factory = new ethers.ContractFactory(ContractABIs.Erc20Handler.abi, ContractABIs.Erc20Handler.bytecode, wallet);
-    const contract = await factory.deploy(bridgeAddress, [], [], [], { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT});
+    const contract = await factory.deploy(bridgeAddress, [], [], [], { gasPrice, gasLimit});
     await contract.deployed();
     return contract.address;
 }
@@ -40,18 +42,18 @@ const deployERC20Mintable = async function(erc20Name, erc20Symbol, wallet, decim
     return contract.address;
 }
 
-const deployMintableCoinFactory = async function(wallet) {
+const deployMintableCoinFactory = async function(wallet, gasPrice, gasLimit) {
     console.log(`Deploying MintableCoinFactory...`);
     const factory = new ethers.ContractFactory(ContractABIs.MintableCoinFactory.abi, ContractABIs.MintableCoinFactory.bytecode, wallet);
-    const contract = await factory.deploy({ gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
+    const contract = await factory.deploy({ gasPrice, gasLimit });
     await contract.deployed();
     return contract.address;
 }
 
-const deployCloneableERC20 = async function(wallet) {
+const deployCloneableERC20 = async function(wallet, gasPrice, gasLimit) {
     console.log(`Deploying CloneableMintableERC20...`);
     const factory = new ethers.ContractFactory(ContractABIs.CloneableMintableERC20.abi, ContractABIs.CloneableMintableERC20.bytecode, wallet);
-    const contract = await factory.deploy("", "", 0, { gasPrice: GAS_PRICE, gasLimit: GAS_LIMIT });
+    const contract = await factory.deploy("", "", 0, { gasPrice, gasLimit });
     await contract.deployed();
     return contract.address;
 }
@@ -143,19 +145,19 @@ exports.deployBridge = new commander.Command("deployBridge")
              * Deployment of main
              * bridge and handler contracts
              */
-            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [], sourceWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
-            const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet);
-            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [], destinationWallet, Number(process.env.BRIDGE_TRANSFER_FEE));
-            const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet);
+            const sourceBridgeAddress = await deployBridgeContract(SRC_CHAIN_DEFAULT_ID, [], sourceWallet, undefined, Number(process.env.BRIDGE_TRANSFER_FEE || 0), undefined, SGAS_PRICE, SGAS_LIMIT);
+            const sourceHandlerAddress = await deployERC20Handler(sourceBridgeAddress, sourceWallet, SGAS_PRICE, SGAS_LIMIT);
+            const destBridgeAddress = await deployBridgeContract(DEST_CHAIN_DEFAULT_ID, [], destinationWallet, undefined, Number(process.env.BRIDGE_TRANSFER_FEE || 0), undefined, DGAS_PRICE, DGAS_LIMIT);
+            const destHanderAddress = await deployERC20Handler(destBridgeAddress, destinationWallet, DGAS_PRICE, DGAS_LIMIT);
 
             /**
              * Deploy mintable factory
              * contract
              */
-            const srcMintableCoinFactoryAddress = await deployMintableCoinFactory(sourceWallet);
-            const srcCloneableMintableERC20Address = await deployCloneableERC20(sourceWallet);
-            const dstMintableCoinFactoryAddress = await deployMintableCoinFactory(destinationWallet);
-            const dstCloneableMintableERC20Address = await deployCloneableERC20(destinationWallet);
+            const srcMintableCoinFactoryAddress = await deployMintableCoinFactory(sourceWallet, SGAS_PRICE, SGAS_LIMIT);
+            const srcCloneableMintableERC20Address = await deployCloneableERC20(sourceWallet, SGAS_PRICE, SGAS_LIMIT);
+            const dstMintableCoinFactoryAddress = await deployMintableCoinFactory(destinationWallet, DGAS_PRICE, DGAS_LIMIT);
+            const dstCloneableMintableERC20Address = await deployCloneableERC20(destinationWallet, DGAS_PRICE, DGAS_LIMIT);
 
             // renounceRole AS MINTER, PAUSER, ADMIN give admin to factory
             await setCloneableCoinAddress(srcMintableCoinFactoryAddress, srcCloneableMintableERC20Address, sourceChainProvider, sourceWallet);

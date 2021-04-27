@@ -1,0 +1,42 @@
+{
+    "chains": [
+        {
+            "endpoint": "",
+            "from": "",
+            "id": "0",
+            "type": "ethereum",
+            "name": "Goerli (test)",
+            "opts": {
+                "bridge": "0xB1189C149D133b1397E879C9C494cc548a4744FC",
+                "erc20Handler": "0x96123Dc10591f68e6e8E584DC5A1bA3938787358",
+                "genericHandler": "0x96123Dc10591f68e6e8E584DC5A1bA3938787358",
+                "gasLimit": "1000000",
+                "maxGasPrice": "10000000000"
+            }
+        },
+        {
+            "endpoint": "",
+            "from": "",
+            "id": "1",
+            "type": "ethereum",
+            "name": "Beresheet (test)",
+            "opts": {
+                "bridge": "0xf23cE281BC7B378f1424Ba61de92A8070c8023C5",
+                "erc20Handler": "0xD323FbDE9D287A288d22F9F4B30E61d2500aa962",
+                "genericHandler": "0xD323FbDE9D287A288d22F9F4B30E61d2500aa962",
+                "gasLimit": "1000000",
+                "maxGasPrice": "10000000000",
+                "http": "true"
+            }
+        }
+    ],
+    "resources": [
+        {
+            "tokens": {
+                "0": "0x7D6c36Bd3d5C977bd9eF7565d1b8FD2d5060C598",
+                "1": "0xEC0Db17F113446a7aC85Bd4dd79E9c17A334eB46"
+            },
+            "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+    ]
+}

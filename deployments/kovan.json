@@ -1,0 +1,49 @@
+{
+    "chains": [
+        {
+            "endpoint": "",
+            "from": "",
+            "id": "0",
+            "type": "ethereum",
+            "name": "Kovan (test)",
+            "opts": {
+                "bridge": "0x2B2242Db1EadB6FB41E679D2Efa15fF05061D2ac",
+                "erc20Handler": "0x56583a149E9026ba86d75949521C09874f247dd7",
+                "genericHandler": "0x56583a149E9026ba86d75949521C09874f247dd7",
+                "gasLimit": "1000000",
+                "maxGasPrice": "10000000000"
+            }
+        },
+        {
+            "endpoint": "",
+            "from": "",
+            "id": "1",
+            "type": "ethereum",
+            "name": "Beresheet (test)",
+            "opts": {
+                "bridge": "0x23D50cE6316145fA4Ebb713f26891238527EF276",
+                "erc20Handler": "0x5F1a4307E725203538C58AFF18753637b8770192",
+                "genericHandler": "0x5F1a4307E725203538C58AFF18753637b8770192",
+                "gasLimit": "1000000",
+                "maxGasPrice": "10000000000",
+                "http": "true"
+            }
+        }
+    ],
+    "resources": [
+        {
+            "tokens": {
+                "0": "0x12A79C9Df767eb64Cf61456Ed9f928cD76DD51C7",
+                "1": "0x41DbD1c4203Feac4DA4F3075bD4a1F2C54E61fb6"
+            },
+            "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        },
+        {
+            "tokens": {
+                "0": "0xfab46e002bbf0b4509813474841e0716e6730136",
+                "1": "0x25d4E95b6bD96897EDe5ED7d5b26d7be20897939"
+            },
+            "resourceId": "0x0000000000000000000000000000000000000000000000000000000000000002"
+        }
+    ]
+}

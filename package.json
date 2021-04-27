@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "setup-relayer": "node index.js setupRelayer && ./scripts/setupKeyStore.sh",
-    "start-relayer": "./scripts/buildRelayer.sh && ./scripts/startRelayer.sh",
+    "start-relayer": "./scripts/startRelayer.sh",
     "install-service": "sudo ./scripts/installService.sh",
     "deploy-bridge": "node index.js deployBridge"
   },

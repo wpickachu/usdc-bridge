@@ -59,10 +59,10 @@ KEYSTORE_PASSWORD=
 **Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
 
 ## Start Relayer
-Complete setting up the relayer from previous heading and simply run ```yarn start-relayer```.
+Copmplete setting up the relayer config using setup relayer section and run ```yarn start-relayer```.
 
 ## Install Service
-Copmplete setting up the relayer config from setup relayer section and run ```yarn install-service```.
+Copmplete setting up the relayer config using setup relayer section and run ```yarn install-service```.
 
 ##  Token Transfers
 

@@ -1,6 +1,5 @@
 #!/bin/bash
 cd env; . relayer.env;
 cd ../relayer;
-sudo make build;
-export KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD
-./build/chainbridge --config config.json --verbosity trace --latest
+docker pull chainsafe/chainbridge
+docker run -e KEYSTORE_PASSWORD=12345678 -v `pwd`/config.json:/config.json -v `pwd`/keys:/keys chainsafe/chainbridge

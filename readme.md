@@ -3,6 +3,27 @@
 A bridge contract (or pallet in Substrate) on each chain forms either side of a bridge. Handler contracts allow for customizable behavior upon receiving transactions to and from the bridge. For example locking up an asset on one side and minting a new one on the other. Its highly customizable - you can deploy a handler contract to perform any action you like.
 In its current state ChainBridge operates under a trusted federation model. Deposit events on one chain are detected by a trusted set of off-chain relayers who await finality, submit events to the other chain and vote on submissions to reach acceptance triggering the appropriate handler.  
 
+## Dependancies (Linux)
+  Install node dependancies using
+  ``` yarn install ```
+  
+  Install make for linux using
+  ``` sudo apt-get install build-essential ```
+  
+  Install go using
+  ```
+  wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local
+
+  export PATH=$PATH:/usr/local/go/bin
+  source ~/.profile
+
+  # go version go1.14.2 linux/amd64
+  go version
+
+  mkdir ~/go
+  ```
+
+  
 ##  Deployment
 1. To deploy contracts on either side of the bridge, we need to first set the following variables in ```deploy.env``` file within ```env``` folder.
 ```
@@ -56,7 +77,8 @@ CH2_PK=
 KEYSTORE_PASSWORD=
 ```
 4.  run ```yarn setup-relayer``` to create a configuration file for an existing bridge.
-**Note:** If the scripts fail to run due to permission errors, please provide exection permission to all the files in the script.
+
+**Note:** If the scripts fail to run due to permission errors, please provide execution permission to all the files in the scripts folder.
 
 ## Start Relayer
 Copmplete setting up the relayer config using setup relayer section and run ```yarn start-relayer```.

@@ -3,12 +3,10 @@ const commander = require('commander');
 // import { deployBridge } from './cmd/deployBridge';
 const { deployBridge } = require('./cli/deployBridge');
 const { startRelayerCmd } = require('./cli/relayer');
-const { admin } = require('./cli/admin');
 // import { relayer } from './cmd/relayer';
 
 let program = new commander.Command();
 program.addCommand(deployBridge);
-program.addCommand(admin);
 program.addCommand(startRelayerCmd);
 // program.addCommand(admin);
 

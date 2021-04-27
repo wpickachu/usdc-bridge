@@ -1,6 +1,5 @@
 #!/bin/bash
 cd env; . relayer.env; cd ..;
-
 {
     echo '[Unit]'
     echo 'Description=EdgewareBridge'

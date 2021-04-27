@@ -1,3 +1,3 @@
 #!/bin/bash
 cd relayer;
-make build
+docker pull chainsafe/chainbridge

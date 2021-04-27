@@ -60,6 +60,17 @@ async function deployERC20Handler(bridgeAddress, wallet) {
     return contract.address;
 }
 
+async function transferFactoryOwner(newOwnerAddress, factoryAddress, wallet) {
+    const factoryContract = new ethers.Contract(factoryAddress, ContractABIs.MintableCoinFactory.abi, wallet);
+    const tx = await factoryContract.transferOwnership(newOwnerAddress);
+    await waitForTx(chainProvider, tx.hash);
+}
+
+async function setCloneableCoinAddress(cloneableContractAddress, factoryAddress, wallet) {
+    const factoryContract = new ethers.Contract(factoryAddress, ContractABIs.MintableCoinFactory.abi, wallet);
+    const tx = await factoryContract.setMintableContractAddress(cloneableContractAddress);
+    await waitForTx(chainProvider, tx.hash);
+}
 
 exports.deployBridge = new commander.Command("deployBridge")
     .option("--relayersSrc <value>", "List of initial relayers (source)", splitCommaList, [])

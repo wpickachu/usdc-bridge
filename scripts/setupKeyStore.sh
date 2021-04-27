@@ -12,3 +12,5 @@ DPKFILE=keys/"$CH2_ADDR".key
 if [ ! -f "$DPKFILE" ]; then 
 ./build/chainbridge accounts import --privateKey $CH2_PK --password $KEYSTORE_PASSWORD
 fi
+
+cd ..;

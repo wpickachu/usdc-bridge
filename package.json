@@ -8,6 +8,7 @@
   "scripts": {
     "setup-relayer": "node index.js setupRelayer && ./scripts/buildRelayer.sh && ./scripts/setupKeyStore.sh",
     "start-relayer": "./scripts/startRelayer.sh",
+    "install-service": "sudo ./scripts/installService.sh",
     "add-relayer": "node index.js admin addRelayer",
     "deploy-bridge": "node index.js deployBridge",
     "add-token": "node index.js admin addToken"

@@ -43,7 +43,7 @@ BRIDGE_TRANSFER_FEE=
 2. After initializing all the values, run ```yarn deploy``` to deploy the bridge. This will deploy all the contracts required for the bridge to work on both chains.
 
 ## Setup relayer
-To run as a relayer on one of our deployed bridge, the following steps are required:
+To run as a relayer on one of deployed bridge, the following steps are required:
 1.  Get ```relayer``` role granted on the bridge where you want to run as a relayer.
 2.  Setup the repository.
 3.  Rename ```relayer.env.example``` to ```relayer.env``` within env directory and set these environment variables.
@@ -61,11 +61,12 @@ KEYSTORE_PASSWORD=
 ## Start Relayer
 Complete setting up the relayer from previous heading and simply run ```yarn start-relayer```.
 
+## Install Service
+Copmplete setting up the relayer config from setup relayer section and run ```yarn install-service```.
+
 ##  Token Transfers
 
 To execute a transfer on either side of the bridge two calls are required.
 1. An **approve** call from ERC20 contract on source/destination bridge with address of handler contract deployed and configured on chain,
 2. A **deposit** call to the bridge should originate from the address that is willing to spend with first parameter being chainId (destination), resource id of the token that needs to be transferred, data is a concatenated byte value with first 32 byte is the amount of tokens to transfer which is padded to 32 bytes with extra 0s, 2nd being the length of recipient address also padded to 32 bytes and last part containing the actual recipient address.
 
-##  Whats Next
-Add gnosis multisafe wallet as an admin on both sides of the bridge to have trusted set of validators.

@@ -1,7 +1,6 @@
 {
-    "chains": [
-        {
-            "endPoint": "https://rinkeby.infura.io/v3/f165a9673b4248d0a3854934717f1f21",
+    "chains": [{
+            "endpoint": "",
             "from": "",
             "id": "0",
             "type": "ethereum",
@@ -10,13 +9,13 @@
                 "bridge": "0x2Db9b7b672083915F8D26209817D8084D415F9f8",
                 "erc20Handler": "0x5ECB12F094AE7a7c73A9389501fC3Ea845Ee8Df2",
                 "genericHandler": "0x5ECB12F094AE7a7c73A9389501fC3Ea845Ee8Df2",
-                "gasLimit": 8000000,
-                "maxGasPrice": 100000000000,
+                "gasLimit": "8000000",
+                "maxGasPrice": "100000000000",
                 "http": "true"
             }
         },
         {
-            "endPoint": "",
+            "endpoint": "",
             "from": "",
             "id": "1",
             "type": "ethereum",
@@ -25,8 +24,8 @@
                 "bridge": "0xd25b57303EF42F40850fA6135e7767dB716d443C",
                 "erc20Handler": "0x12A79C9Df767eb64Cf61456Ed9f928cD76DD51C7",
                 "genericHandler": "0x12A79C9Df767eb64Cf61456Ed9f928cD76DD51C7",
-                "gasLimit": 8000000,
-                "maxGasPrice": 100000000000,
+                "gasLimit": "8000000",
+                "maxGasPrice": "100000000000",
                 "http": "true"
             }
         }

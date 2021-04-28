@@ -1,6 +1,7 @@
 #!/bin/bash
 set -a; . ./env/relayer.env; set +a;
 cd ./relayer;
+make build;
 
 SPKFILE=keys/"$CH1_ADDR".key
 if [ ! -f "$SPKFILE" ]; then

@@ -34,9 +34,10 @@ SRC_CHAIN_NAME=
 SRC_ADDRESS=
 SRC_CHAIN_PRIVATE_KEY=
 SRC_CHAIN_RPC_HTTPS=
-# ws url is optional, chainbridge works with https but ws is preffered
+SGAS_LIMIT=
+SGAS_PRICE=
+# multi sig and ws endpoints are optional
 SRC_CHAIN_RPC_WS=
-# multisig address is optional setting it will change admin of bridge to specified address
 SRC_MULTISIG=
 
 DEST_CHAIN_NETWORK_ID=
@@ -44,19 +45,17 @@ DEST_CHAIN_NAME=
 DEST_ADDRESS=
 DEST_CHAIN_PRIVATE_KEY=
 DEST_CHAIN_RPC_HTTPS=
-# ws url is optional, chainbridge works with https but ws is preffered
+DGAS_LIMIT=
+DGAS_PRICE=
+# multi sig and ws endpoints are optional
 DEST_CHAIN_RPC_WS=
-# multisig address is optional setting it will change admin of bridge to specified address
 DEST_MULTISIG=
 
 # 32 BYTE HEX string that identifies token on either side of the bridge
-# src token is the address of erc20 on source chain
-SRC_TOKEN=
-# decimal places of erc20
-SRC_DECIMALS=
-# 32 byte random hex string for identifying this token over the bridge. Note least significant byte must contain a chain ID
-RESOURCE_ID=
 # Token Name and Symbol that gets deployed on destination chain
+SRC_TOKEN=
+SRC_DECIMALS=
+RESOURCE_ID=
 TARGET_TOKEN_NAME=
 TARGET_TOKEN_SYMBOL=
 
@@ -71,6 +70,8 @@ To run as a relayer on one of deployed bridge, the following steps are required:
 2.  Setup the repository.
 3.  Rename ```relayer.env.example``` to ```relayer.env``` within env directory and set these environment variables.
 ```bash
+# BRIDGE=goerli_beresheet | rinkeby_beresheet only for now
+BRIDGE=
 CH1_ADDR=
 CH1_PK=
 

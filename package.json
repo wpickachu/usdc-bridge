@@ -9,6 +9,7 @@
     "setup-relayer": "node index.js setupRelayer && ./scripts/setupKeyStore.sh",
     "start-relayer": "./scripts/startRelayer.sh",
     "install-service": "sudo ./scripts/installService.sh",
+    "run-docker": "./scripts/runDocker.sh",
     "deploy-bridge": "node index.js deployBridge"
   },
   "dependencies": {
